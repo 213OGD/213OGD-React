@@ -1,4 +1,5 @@
-import React from 'react';
+import Axios, { AxiosResponse } from 'axios';
+import React, { useEffect, useState } from 'react';
 import Card, { DatasProps } from './components/Card';
 
 const datas: DatasProps[] = [
@@ -23,10 +24,27 @@ const datas: DatasProps[] = [
 ];
 
 function App(): JSX.Element {
+  const [files, setFiles] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await Axios('http://localhost:5000/api/file/list');
+        // eslint-disable-next-line no-console
+        console.log(result.data.result);
+        setFiles(result.data.result);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div>
       <h1>213 OGD</h1>
-      {datas.map((data) => (
+      {files.map((data) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
         <Card key={data.id} {...data} />
       ))}
