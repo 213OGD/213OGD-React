@@ -1,4 +1,5 @@
 import React from 'react';
+import AddTag from './AddTag';
 
 export type DatasProps = {
   id: string;
@@ -8,25 +9,27 @@ export type DatasProps = {
   tags: string[];
 };
 
-function Card(props: DatasProps): JSX.Element {
+function CardFile(props: DatasProps): JSX.Element {
   const { name, webViewLink, iconLink, tags } = props;
 
   return (
-    <div>
-      <a href={webViewLink}>
-        <figure>
+    <div className="card">
+      <figure>
+        <a href={webViewLink}>
           <img src={iconLink} alt={name} />
           <figcaption>{name}</figcaption>
-        </figure>
-      </a>
+        </a>
+      </figure>
+      <h3>Tags :</h3>
       <ul>
         {tags.map((el, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>{el}</li>
         ))}
       </ul>
+      <AddTag />
     </div>
   );
 }
 
-export default Card;
+export default CardFile;

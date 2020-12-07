@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+}
+header{
+    /* background-color: #f76c6c; */
+    background: no-repeat center url('./bg-wild.jpeg');
+    color: white;
+    height: 200px;
+    display:flex;
+    justify-content: center ;
+    align-items: center;
+}
+header h1{
+    margin: 0;
+}
+
+.container-cards{
+    max-width: 1500px;
+    display:flex;
+    flex-wrap: wrap;
+    margin: auto;
+    padding: 0 1em;
+    justify-content: space-between;
+}
+
+.card{
+    border: 2px dashed #f76c6c;
+    min-width: 200px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.card figure{
+    text-align: center;
+}
+.card figure img{
+    width: 50px;
+}
