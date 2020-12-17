@@ -21,9 +21,8 @@ header h1 {
     max-width: 1500px;
     display: flex;
     flex-wrap: wrap;
-    margin: auto;
+    margin: auto auto auto 10%;
     padding: 0 1em;
-    justify-content: space-between;
 }
 
 .card {
@@ -40,15 +39,24 @@ header h1 {
     width: 50px;
 }
 
+.fullbarV {
+    background-color: #e0e0e0;
+    position: absolute;
+    top: 200px;
+    height: 80%;
+    width: 120px;
+}
 .sidebar {
     display: grid;
-    width: 10%;
-    text-align: center;
-    background: #e0e0e0;
 }
 
 .sidebar a {
     text-decoration: none;
     color: #39424e;
-    margin-top: 40px;
+    margin-top: 20px;
+    padding-left: 30px;
+}
+
+.sidebar .active {
+    color: red;
 }
