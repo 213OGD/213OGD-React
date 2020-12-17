@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function AddTag() {
+function AddTag(): JSX.Element {
   const [tag, setTag] = useState('');
 
   function formSubmission(e: any) {
