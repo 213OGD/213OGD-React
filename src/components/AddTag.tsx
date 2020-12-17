@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 function AddTag(): JSX.Element {
   const [tag, setTag] = useState('');
 
-  function formSubmission(e: any) {
+  function formSubmission(e: FormEvent) {
     e.preventDefault();
   }
 
