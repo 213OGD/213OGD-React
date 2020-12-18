@@ -46,7 +46,7 @@ function App(): JSX.Element {
 
   const { loading, error, data } = useQuery(GET_FILES);
 
-  console.log(process.env.REACT_APP_URI, 'FILES');
+  // console.log(process.env.REACT_APP_URI, 'FILES', data);
 
   return (
     <div className="container">
@@ -54,12 +54,12 @@ function App(): JSX.Element {
         <h1>213 Odyssey Google Drive</h1>
       </header>
       <div className="container-cards">
-        {loading && <h1>loading ...</h1>}
-        {error && <h1>error</h1>}
+        {loading && <h2>loading ...</h2>}
+        {error && <h2>error</h2>}
         {data &&
           data.files.map((file: JSX.IntrinsicAttributes & DatasProps) => (
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            <CardFile key={file.id} {...file} />
+            // eslint-disable-next-line react/jsx-props-no-spreading, no-underscore-dangle
+            <CardFile key={file._id} {...file} />
           ))}
       </div>
       <SideBar />
