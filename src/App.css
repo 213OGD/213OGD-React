@@ -4,38 +4,59 @@
 body {
     margin: 0;
 }
-header{
+header {
     /* background-color: #f76c6c; */
     background: no-repeat center url('./bg-wild.jpeg');
     color: white;
     height: 200px;
-    display:flex;
-    justify-content: center ;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
-header h1{
+header h1 {
     margin: 0;
 }
 
-.container-cards{
+.container-cards {
     max-width: 1500px;
-    display:flex;
+    display: flex;
     flex-wrap: wrap;
-    margin: auto;
+    margin: auto auto auto 10%;
     padding: 0 1em;
-    justify-content: space-between;
 }
 
-.card{
+.card {
     border: 2px dashed #f76c6c;
     min-width: 200px;
     margin: 5px;
     padding: 5px;
 }
 
-.card figure{
+.card figure {
     text-align: center;
 }
-.card figure img{
+.card figure img {
     width: 50px;
+}
+
+.fullbarV {
+    background-color: #e0e0e0;
+    position: absolute;
+    top: 200px;
+    height: 80%;
+    width: 120px;
+}
+.sidebar {
+    display: grid;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #39424e;
+    margin-top: 20px;
+    padding-left: 30px;
+}
+
+.sidebar .active {
+    color: red;
 }

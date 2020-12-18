@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import GET_FILES from './queries/files.queries';
 import CardFile, { DatasProps } from './components/CardFile';
 import './App.css';
+import SideBar from './components/SideBar';
 
 function App(): JSX.Element {
   const [files, setFiles] = useState<DatasProps[]>([]);
@@ -61,6 +62,7 @@ function App(): JSX.Element {
             <CardFile key={file.id} {...file} />
           ))}
       </div>
+      <SideBar />
     </div>
   );
 }
