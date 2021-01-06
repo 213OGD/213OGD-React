@@ -1,0 +1,12 @@
+version: "3.3"
+
+services:
+  front:
+    image: 213ogd/front
+    build: 
+      context: .
+    ports: 
+      - 3000:3000
+    volumes:
+      - ./src:/app/src
+    container_name: front
