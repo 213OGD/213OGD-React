@@ -2,7 +2,7 @@ import React from 'react';
 import AddTag from './AddTag';
 
 export type DatasProps = {
-  id: string;
+  _id: string;
   name: string;
   webViewLink: string;
   iconLink: string;
