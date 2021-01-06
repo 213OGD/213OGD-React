@@ -3,6 +3,7 @@ import AddTag from './AddTag';
 
 export type DatasProps = {
   _id: string;
+  googleId?: string;
   name: string;
   webViewLink: string;
   iconLink: string;
@@ -22,10 +23,11 @@ function CardFile(props: DatasProps): JSX.Element {
       </figure>
       <h3>Tags :</h3>
       <ul>
-        {tags.map((el, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <li key={index}>{el}</li>
-        ))}
+        {tags &&
+          tags.map((el, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <li key={index}>{el}</li>
+          ))}
       </ul>
       <AddTag />
     </div>
