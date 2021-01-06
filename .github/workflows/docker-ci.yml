@@ -28,5 +28,6 @@ jobs:
         with:
           push: true
           tags: 213/front:latest
+      -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
