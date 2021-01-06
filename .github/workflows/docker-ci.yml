@@ -27,6 +27,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: 213/front:latest
+          tags: 213ogd/front:latest
+      -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
