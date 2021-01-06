@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function SideBar() {
+function SideBar(): JSX.Element {
   return (
     <div className="fullbarV">
       <nav className="sidebar">
