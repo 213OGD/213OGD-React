@@ -24,4 +24,4 @@ jobs:
          password: ${{ secrets.DOCKERHUB_TOKEN }}
      -
       name: Deploy to dev
-      run: docker-compose up --build -d -f docker-compose-deploy.yml
+      run: docker-compose -f docker-compose-deploy.yml up --build -d
