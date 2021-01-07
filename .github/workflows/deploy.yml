@@ -14,7 +14,7 @@ on:
 jobs:
   deploy:
 
-   runs-on: [self-hosted, linux, ARM64]
+   runs-on: [my-first-server]
    steps:
      -
        name: Login to DockerHub
