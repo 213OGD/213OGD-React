@@ -27,6 +27,8 @@ jobs:
       name: Deploy to dev
       run: | 
         ls -a
+        touch .env
+        echo "REACT_APP_URI=http://mohammedkhellafi.me:4000/" > .env
         docker pull 213ogd/front
         docker pull 213ogd/server
         docker-compose -f docker-compse-deploy.yml up --build -d
