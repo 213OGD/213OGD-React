@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  front:
+    image: 213ogd/front
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 3000:3000
+    container_name: front
+    networks:
+      - ogd
+  back:
+    image: 213ogd/server
+    ports:
+      - "4000:4000"
+    container_name: server
+
+networks:
+  ogd:
+    name: network
