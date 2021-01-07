@@ -3,6 +3,8 @@ version: "3"
 services:
   front:
     image: 213ogd/front
+    build:
+      context: .
     volumes:
       - ./src:/app/src
     ports:
