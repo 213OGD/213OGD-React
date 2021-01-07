@@ -5,11 +5,17 @@ on:
     branches: [ dev ]
   pull_request:
     branches: [ dev ]
-
+  workflow_run:
+    workflows:
+      - Build and push on Docker Hub
+    types:
+      - completed
+      - requested
 jobs:
-  build:
+  deploy:
+    if:
 
-   runs-on: self-hosted
+    runs-on: self-hosted
    steps:
      -
        name: Login to DockerHub
