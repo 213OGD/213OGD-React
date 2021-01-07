@@ -27,5 +27,5 @@ jobs:
       name: Deploy to dev
       run: | 
         ls -a
-        docker-compose -f docker-compose-deploy.yml up --build -d
+        docker-compose -f docker-compse-deploy.yml up --build -d
         
