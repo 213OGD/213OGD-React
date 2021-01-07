@@ -24,8 +24,6 @@ jobs:
          username: ${{ secrets.DOCKERHUB_USERNAME }}
          password: ${{ secrets.DOCKERHUB_TOKEN }}
      -
-        name: env
-     -
       name: Deploy to dev
       run: | 
         ls -a
