@@ -10,6 +10,8 @@ services:
     container_name: front
     networks:
       - ogd
+    environment:
+      - REACT_APP_URI=localhost:3000
   back:
     image: 213ogd/server
     ports:

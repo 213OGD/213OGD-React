@@ -13,7 +13,6 @@ on:
       - requested
 jobs:
   deploy:
-    if:
 
     runs-on: self-hosted
    steps:
