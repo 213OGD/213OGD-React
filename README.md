@@ -1,7 +1,7 @@
 # Getting Started with Create React App
 
 ![Test CI](https://github.com/213OGD/213OGD-React/workflows/Test%20CI/badge.svg?branch=dev)
-![ci](https://github.com/213OGD/213OGD-React/workflows/ci/badge.svg?branch=dev)
+![Build and push on Docker Hub](https://github.com/213OGD/213OGD-React/workflows/Build%20and%20push%20on%20Docker%20Hub/badge.svg?branch=dev)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
