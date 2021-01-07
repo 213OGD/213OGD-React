@@ -23,6 +23,8 @@ jobs:
          username: ${{ secrets.DOCKERHUB_USERNAME }}
          password: ${{ secrets.DOCKERHUB_TOKEN }}
      -
-      name: Deploy to Docker
-      run: docker-compose up -f docker-compse-deploy.yml -d --build
-
+      name: Deploy to dev
+      uses: JorgenVatle/docker-compose-deploy@v1.0
+      with:
+        ssh_user: 'ogd' # optional, user to connect to deploy targets with. Defaults to 'root'
+        compose_file: 'docker-compose-deploy.yml' # optional, path/filename of your docker-compose file. Defaults to 'docker-compose.yml'
