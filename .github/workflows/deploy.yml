@@ -27,5 +27,7 @@ jobs:
       name: Deploy to dev
       run: | 
         ls -a
+        docker pull 213ogd/front
+        docker pull 213ogd/server
         docker-compose -f docker-compse-deploy.yml up --build -d
         
