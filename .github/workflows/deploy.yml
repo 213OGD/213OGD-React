@@ -24,6 +24,9 @@ jobs:
          username: ${{ secrets.DOCKERHUB_USERNAME }}
          password: ${{ secrets.DOCKERHUB_TOKEN }}
      -
+        name: env
+        run: touch .env && echo "REACT_APP_URI=http://mohammedkhellafi.me:4000/" > .env
+     -
       name: Deploy to dev
       run: | 
         ls -a
