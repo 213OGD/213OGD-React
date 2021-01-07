@@ -17,6 +17,8 @@ services:
     ports:
       - "4000:4000"
     container_name: server
+    networks:
+      - ogd
 
 networks:
   ogd:
