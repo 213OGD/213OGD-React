@@ -7,7 +7,7 @@ services:
       - traefik.docker.network=web
       - traefik.enable=true
       - traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)
-      - traefik.frontend.rule=Host:front.mohammedkhellafi.me
+      - traefik.frontend.rule=Host(`front.mohammedkhellafi.me`)
       - traefik.backend=back.mohammedkhellafi.me
       - traefik.http.routers.front.tls=true
       - traefik.http.routers.front.entrypoints=web
@@ -30,7 +30,7 @@ services:
       - traefik.docker.network=web
       - traefik.enable=true
       - traefik.http.routers.front.rule=Host(`back.mohammedkhellafi.me`)
-      - traefik.frontend.rule=Host:back.mohammedkhellafi.me
+      - traefik.frontend.rule=Host(`back.mohammedkhellafi.me`)
       - traefik.backend=back.mohammedkhellafi.me
       - traefik.http.routers.back.tls=true
       - traefik.http.routers.back.entrypoints=web
