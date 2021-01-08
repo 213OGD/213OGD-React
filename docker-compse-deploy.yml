@@ -4,16 +4,19 @@ services:
   front:
     image: 213ogd/front
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)"
-      - "traefik.http.services.front.loadbalancer.server.port=80"
-      - "traefik.http.routers.front.entrypoints=websecure"
-      - "traefik.http.routers.front.tls.certresolver=leresolver"
-      - traefik.backend=font
-      - traefik.http.routers.front.tls=true
-      - traefik.http.routers.front.entrypoints=web
-      - traefik.http.routers.front.tls.certresolver=lets-encrypt
-      - traefik.port=3000
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)"
+#      - "traefik.http.services.front.loadbalancer.server.port=80"
+#      - "traefik.http.routers.front.entrypoints=websecure"
+#      - "traefik.http.routers.front.tls.certresolver=leresolver"
+#      - traefik.backend=font
+#      - traefik.http.routers.front.tls=true
+#      - traefik.http.routers.front.entrypoints=web
+#      - traefik.http.routers.front.tls.certresolver=lets-encrypt
+#      - traefik.port=3000
+      - "traefik.http.routers.simple-fe.rule=Host(`front.mohammedkhellafi.me`)" # domain to expose on
+      - "traefik.http.routers.simple-fe.entrypoints=websecure" # if you named your 443 entrypoint differently than webscure, substitute it here!
+      - "traefik.http.routers.simple-fe.tls.certresolver=letsencrypt" # if you named your cert resolver differently than letsencrypt, substitute it here!
     build:
       context: .
     volumes:
@@ -29,16 +32,20 @@ services:
   back:
     image: 213ogd/server
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.back.rule=Host(`back.mohammedkhellafi.me`)"
-      - "traefik.http.services.back.loadbalancer.server.port=80"
-      - "traefik.http.routers.back.entrypoints=websecure"
-      - "traefik.http.routers.back.tls.certresolver=leresolver"
-      - traefik.backend=back
-      - traefik.http.routers.back.tls=true
-      - traefik.http.routers.back.entrypoints=web
-      - traefik.http.routers.back.tls.certresolver=lets-encrypt
-      - traefik.port=4000
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.back.rule=Host(`back.mohammedkhellafi.me`)"
+#      - "traefik.http.services.back.loadbalancer.server.port=80"
+#      - "traefik.http.routers.back.entrypoints=websecure"
+#      - "traefik.http.routers.back.tls.certresolver=leresolver"
+#      - traefik.backend=back
+#      - traefik.http.routers.back.tls=true
+#      - traefik.http.routers.back.entrypoints=web
+#      - traefik.http.routers.back.tls.certresolver=lets-encrypt
+#      - traefik.port=4000
+  - "traefik.enable=true"
+    - "traefik.http.routers.simple-be.rule=Host(`back.mohammedkhellafi.me`)" # domain to expose on
+    - "traefik.http.routers.simple-be.entrypoints=websecure" # if you named your 443 entrypoint differently than webscure, substitute it here!
+    - "traefik.http.routers.simple-be.tls.certresolver=letsencrypt" # if you named your cert resolver differently than letsencrypt, substitute it here!
     container_name: server
     ports:
       - 4000:80
@@ -49,6 +56,6 @@ services:
 networks:
   ogd:
   web:
-    external:
-      name: web
+    external: true
+
 
