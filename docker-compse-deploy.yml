@@ -49,6 +49,6 @@ services:
 networks:
   ogd:
   web:
-    external: true
+    external:
       name: web
 
