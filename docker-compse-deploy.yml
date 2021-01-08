@@ -22,8 +22,6 @@ services:
     volumes:
       - ./src:/app/src
     container_name: front
-    ports:
-      - 3000:80
     networks:
       - ogd
       - web
@@ -47,8 +45,6 @@ services:
     - "traefik.http.routers.simple-be.entrypoints=websecure" # if you named your 443 entrypoint differently than webscure, substitute it here!
     - "traefik.http.routers.simple-be.tls.certresolver=letsencrypt" # if you named your cert resolver differently than letsencrypt, substitute it here!
     container_name: server
-    ports:
-      - 4000:80
     networks:
       - ogd
       - web
