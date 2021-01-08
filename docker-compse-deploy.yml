@@ -3,12 +3,10 @@ version: "3"
 services:
   front:
     image: 213ogd/front
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)"
-      - "traefik.http.services.front.loadbalancer.server.port=8080"
-      - "traefik.http.routers.front.entrypoints=websecure"
-      - "traefik.http.routers.front.tls.certresolver=leresolver"
+      - traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)
+      - traefik.http.routers.front.tls=true
+      - traefik.http.routers.front.tls.certresolver=lets-encrypt
+      - traefik.port=80
     build:
       context: .
     volumes:
@@ -25,11 +23,10 @@ services:
     image: 213ogd/server
     
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.front.rule=Host(`mohammedkhellafi.me`)"
-      - "traefik.http.services.front.loadbalancer.server.port=8080"
-      - "traefik.http.routers.front.entrypoints=websecure"
-      - "traefik.http.routers.front.tls.certresolver=leresolver"
+      - traefik.http.routers.back.rule=Host(`mohammedkhellafi.me`)
+      - traefik.http.routers.back.tls=true
+      - traefik.http.routers.back.tls.certresolver=lets-encrypt
+      - traefik.port=80
     ports:
       - "4000:4000"
     container_name: server
