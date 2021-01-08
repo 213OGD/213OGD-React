@@ -7,7 +7,7 @@ services:
       - traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)
       - traefik.http.routers.front.tls=true
       - traefik.http.routers.front.tls.certresolver=lets-encrypt
-      - traefik.port=80
+      - traefik.port=3000
     build:
       context: .
     volumes:
@@ -27,7 +27,7 @@ services:
       - traefik.http.routers.back.rule=Host(`back.mohammedkhellafi.me`)
       - traefik.http.routers.back.tls=true
       - traefik.http.routers.back.tls.certresolver=lets-encrypt
-      - traefik.port=80
+      - traefik.port=4000
     ports:
       - "4000:4000"
     container_name: server
