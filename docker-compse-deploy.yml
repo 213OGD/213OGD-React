@@ -4,8 +4,11 @@ services:
   front:
     image: 213ogd/front
     labels:
+      - traefik.docker.network=web
       - traefik.enable=true
       - traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)
+      - traefik.frontend.rule=Host:front.mohammedkhellafi.me
+      - traefik.backend=back.mohammedkhellafi.me
       - traefik.http.routers.front.tls=true
       - traefik.http.routers.front.entrypoints=web
       - traefik.http.routers.front.tls.certresolver=lets-encrypt
@@ -23,10 +26,12 @@ services:
       - REACT_APP_URI=http://back.mohammedkhellafi.me:4000/
   back:
     image: 213ogd/server
-    
     labels:
+      - traefik.docker.network=web
       - traefik.enable=true
-      - traefik.http.routers.back.rule=Host(`back.mohammedkhellafi.me`)
+      - traefik.http.routers.front.rule=Host(`back.mohammedkhellafi.me`)
+      - traefik.frontend.rule=Host:back.mohammedkhellafi.me
+      - traefik.backend=back.mohammedkhellafi.me
       - traefik.http.routers.back.tls=true
       - traefik.http.routers.back.entrypoints=web
       - traefik.http.routers.back.tls.certresolver=lets-encrypt
@@ -41,3 +46,5 @@ networks:
   ogd:
   web:
     external: true
+      name: web
+
