@@ -4,7 +4,11 @@ services:
   front:
     image: 213ogd/front
     labels:
-      - traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)
+      - "traefik.enable=true"
+      - "traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)"
+      - "traefik.http.services.front.loadbalancer.server.port=8080"
+      - "traefik.http.routers.front.entrypoints=websecure"
+      - "traefik.http.routers.front.tls.certresolver=leresolver"
     build:
       context: .
     volumes:
@@ -20,7 +24,11 @@ services:
     image: 213ogd/server
     
     labels:
-      - traefik.http.routers.back.rule=Host(`mohammedkhellafi.me`)
+      - "traefik.enable=true"
+      - "traefik.http.routers.front.rule=Host(`mohammedkhellafi.me`)"
+      - "traefik.http.services.front.loadbalancer.server.port=8080"
+      - "traefik.http.routers.front.entrypoints=websecure"
+      - "traefik.http.routers.front.tls.certresolver=leresolver"
     ports:
       - "4000:4000"
     container_name: server
