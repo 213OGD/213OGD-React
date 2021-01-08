@@ -5,10 +5,12 @@ services:
     image: 213ogd/front
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.staticfiles.rule=Host(`front.mohammedkhellafi.me`)"
-      - "traefik.http.services.staticfiles.loadbalancer.server.port=80"
-      - "traefik.http.routers.staticfiles.entrypoints=websecure"
-      - "traefik.http.routers.staticfiles.tls.certresolver=leresolver"
+      - "traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)"
+      - "traefik.http.services.front.loadbalancer.server.port=80"
+      - "traefik.http.routers.front.entrypoints=websecure"
+      - "traefik.http.routers.front.tls.certresolver=leresolver"
+      - traefik.http.routers.front.tls.certresolver=lets-encrypt
+      - traefik.port=3000
     build:
       context: .
     volumes:
@@ -25,10 +27,12 @@ services:
     image: 213ogd/server
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.staticfiles.rule=Host(`back.mohammedkhellafi.me`)"
-      - "traefik.http.services.staticfiles.loadbalancer.server.port=80"
-      - "traefik.http.routers.staticfiles.entrypoints=websecure"
-      - "traefik.http.routers.staticfiles.tls.certresolver=leresolver"
+      - "traefik.http.routers.back.rule=Host(`back.mohammedkhellafi.me`)"
+      - "traefik.http.services.back.loadbalancer.server.port=80"
+      - "traefik.http.routers.back.entrypoints=websecure"
+      - "traefik.http.routers.back.tls.certresolver=leresolver"
+      - traefik.http.routers.back.tls.certresolver=lets-encrypt
+      - traefik.port=4000
     container_name: server
     ports:
       - 4000:80
