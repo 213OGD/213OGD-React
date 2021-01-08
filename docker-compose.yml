@@ -10,3 +10,5 @@ services:
     ports: 
       - 3000:3000
     container_name: front
+    environment: 
+      - REACT_APP_URI=${REACT_APP_URI}

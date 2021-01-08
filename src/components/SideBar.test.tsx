@@ -14,8 +14,8 @@ describe('Sidebar', () => {
       '#'
     );
   });
+  it('renders sidebar & "Ressource" has class "active"', () => {
+    render(<SideBar />);
+    expect(screen.getByText('Ressources')).toHaveClass('active');
+  });
 });
-// expect(screen.getAllByRole('link')).toHaveTextContent('Ressources');
-
-// expect(screen.getByText('Ressources').closest('a')).toHaveAttribute('href');
-// .toHaveClass('active');
