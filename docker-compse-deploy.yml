@@ -8,19 +8,19 @@ services:
       - traefik.enable=true
       - traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)
       - traefik.frontend.rule=Host(`front.mohammedkhellafi.me`)
-      - traefik.backend=back.mohammedkhellafi.me
+      - traefik.backend=front
       - traefik.http.routers.front.tls=true
       - traefik.http.routers.front.entrypoints=web
       - traefik.http.routers.front.tls.certresolver=lets-encrypt
-      - traefik.http.services.front.loadbalancer.server.port=3000
-      - traefik.port=3000
+      - traefik.http.services.front.loadbalancer.server.port=80
+      - traefik.port=80
     build:
       context: .
     volumes:
       - ./src:/app/src
     container_name: front
     ports:
-      - 3000:3000
+      - 3000:80
     networks:
       - ogd
       - web
@@ -33,15 +33,15 @@ services:
       - traefik.enable=true
       - traefik.http.routers.front.rule=Host(`back.mohammedkhellafi.me`)
       - traefik.frontend.rule=Host(`back.mohammedkhellafi.me`)
-      - traefik.backend=back.mohammedkhellafi.me
+      - traefik.backend=back
       - traefik.http.routers.back.tls=true
       - traefik.http.routers.back.entrypoints=web
       - traefik.http.routers.back.tls.certresolver=lets-encrypt
-      - traefik.http.services.back.loadbalancer.server.port=4000
-      - traefik.port=4000
+      - traefik.http.services.back.loadbalancer.server.port=80
+      - traefik.port=80
     container_name: server
     ports:
-      - 4000:4000
+      - 4000:80
     networks:
       - ogd
       - web
