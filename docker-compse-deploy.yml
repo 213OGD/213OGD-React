@@ -3,6 +3,7 @@ version: "3"
 services:
   front:
     image: 213ogd/front
+    labels:
       - traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)
       - traefik.http.routers.front.tls=true
       - traefik.http.routers.front.tls.certresolver=lets-encrypt
@@ -18,12 +19,12 @@ services:
       - ogd
       - web
     environment:
-      - REACT_APP_URI=http://mohammedkhellafi.me:4000/
+      - REACT_APP_URI=http://back.mohammedkhellafi.me:4000/
   back:
     image: 213ogd/server
     
     labels:
-      - traefik.http.routers.back.rule=Host(`mohammedkhellafi.me`)
+      - traefik.http.routers.back.rule=Host(`back.mohammedkhellafi.me`)
       - traefik.http.routers.back.tls=true
       - traefik.http.routers.back.tls.certresolver=lets-encrypt
       - traefik.port=80
