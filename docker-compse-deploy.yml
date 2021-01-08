@@ -20,7 +20,7 @@ services:
     image: 213ogd/server
     
     labels:
-      - traefik.http.routers.front.rule=Host(`mohammedkhellafi.me`)
+      - traefik.http.routers.back.rule=Host(`mohammedkhellafi.me`)
     ports:
       - "4000:4000"
     container_name: server
