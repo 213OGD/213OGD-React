@@ -8,6 +8,7 @@ const client = new ApolloClient({
   uri: process.env.REACT_APP_URI,
   cache: new InMemoryCache(),
 });
+console.log(process.env.REACT_APP_URI)
 
 ReactDOM.render(
   <React.StrictMode>

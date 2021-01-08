@@ -1,0 +1,35 @@
+name: Deploy CI
+
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+  workflow_run:
+    workflows:
+      - Build and push on Docker Hub
+    types:
+      - completed
+      - requested
+jobs:
+  deploy:
+
+   runs-on: [self-hosted]
+   steps:
+     - uses: actions/checkout@v2
+     -
+       name: Login to DockerHub
+       uses: docker/login-action@v1
+       with:
+         username: ${{ secrets.DOCKERHUB_USERNAME }}
+         password: ${{ secrets.DOCKERHUB_TOKEN }}
+     -
+      name: Deploy to dev
+      run: | 
+        ls -a
+        touch .env
+        echo "REACT_APP_URI=http://mohammedkhellafi.me:4000/" > .env
+        docker pull 213ogd/front
+        docker pull 213ogd/server
+        docker-compose -f docker-compse-deploy.yml up --build -d
+        

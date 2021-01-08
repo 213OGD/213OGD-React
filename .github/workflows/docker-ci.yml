@@ -1,9 +1,10 @@
-name: ci
+name: Build and push on Docker Hub
 
 on:
+  push:
+    branches: [ dev ]
   pull_request:
-    branches: 
-      - dev
+    branches: [ dev ]
 
 jobs:
   main:
