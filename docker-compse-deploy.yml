@@ -16,7 +16,7 @@ services:
 #      - traefik.port=3000
       - "traefik.http.routers.simple-fe.rule=Host(`front.mohammedkhellafi.me`)" # domain to expose on
       - "traefik.http.routers.simple-fe.entrypoints=websecure" # if you named your 443 entrypoint differently than webscure, substitute it here!
-      - "traefik.http.routers.simple-fe.tls.certresolver=letsencrypt" # if you named your cert resolver differently than letsencrypt, substitute it here!
+      - "traefik.http.routers.simple-fe.tls.certresolver=lets-encrypt" # if you named your cert resolver differently than letsencrypt, substitute it here!
     build:
       context: .
     volumes:
@@ -43,7 +43,7 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.simple-be.rule=Host(`back.mohammedkhellafi.me`)" # domain to expose on
     - "traefik.http.routers.simple-be.entrypoints=websecure" # if you named your 443 entrypoint differently than webscure, substitute it here!
-    - "traefik.http.routers.simple-be.tls.certresolver=letsencrypt" # if you named your cert resolver differently than letsencrypt, substitute it here!
+    - "traefik.http.routers.simple-be.tls.certresolver=lets-encrypt" # if you named your cert resolver differently than letsencrypt, substitute it here!
     container_name: server
     networks:
       - ogd
