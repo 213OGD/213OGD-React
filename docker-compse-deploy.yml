@@ -42,7 +42,7 @@ services:
 #      - traefik.http.routers.back.entrypoints=web
 #      - traefik.http.routers.back.tls.certresolver=lets-encrypt
 #      - traefik.port=4000
-  - "traefik.enable=true"
+    - "traefik.enable=true"
     - "traefik.http.routers.simple-be.rule=Host(`back.mohammedkhellafi.me`)" # domain to expose on
     - "traefik.http.routers.simple-be.entrypoints=websecure" # if you named your 443 entrypoint differently than webscure, substitute it here!
     - "traefik.http.routers.simple-be.tls.certresolver=letsencrypt" # if you named your cert resolver differently than letsencrypt, substitute it here!
