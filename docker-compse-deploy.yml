@@ -14,6 +14,8 @@ services:
       - "traefik.http.routers.front-secure.tls.certresolver=http"
       - "traefik.http.services.front.loadbalancer.server.port=3000"
       - "traefik.docker.network=web"
+      - traefik.port=80
+
     build:
       context: .
     volumes:
@@ -37,6 +39,7 @@ services:
       - "traefik.http.routers.front-secure.tls.certresolver=http"
       - "traefik.http.services.back.loadbalancer.server.port=4000"
       - "traefik.docker.network=web"
+      - traefik.port=80
     container_name: server
     networks:
       - ogd
