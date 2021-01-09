@@ -4,19 +4,17 @@ services:
   front:
     image: 213ogd/front
     labels:
-#      - "traefik.enable=true"
-#      - "traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)"
-#      - "traefik.http.services.front.loadbalancer.server.port=80"
-#      - "traefik.http.routers.front.entrypoints=websecure"
-#      - "traefik.http.routers.front.tls.certresolver=leresolver"
-#      - traefik.backend=font
-#      - traefik.http.routers.front.tls=true
-#      - traefik.http.routers.front.entrypoints=web
-#      - traefik.http.routers.front.tls.certresolver=lets-encrypt
-#      - traefik.port=3000
-      - traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`) # domain to expose on
-      - "traefik.http.routers.front.entrypoints=websecure" # if you named your 443 entrypoint differently than webscure, substitute it here!
-      - "traefik.http.routers.front.tls.certresolver=myresolver"
+      - "traefik.enable=true"
+      - "traefik.http.routers.front.entrypoints=http"
+      - "traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)"
+      - "traefik.http.middlewares.front-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.front.middlewares=portainer-https-redirect"
+      - "traefik.http.routers.front-secure.entrypoints=https"
+      - "traefik.http.routers.front-secure.rule=Host(`front.mohammedkhellafi.me`)"
+      - "traefik.http.routers.front-secure.tls=true"
+      - "traefik.http.routers.front-secure.service=portainer"
+      - "traefik.http.services.front.loadbalancer.server.port=3000"
+      - "traefik.docker.network=web"
     build:
       context: .
     volumes:
@@ -30,20 +28,17 @@ services:
   back:
     image: 213ogd/server
     labels:
-#      - "traefik.enable=true"
-#      - "traefik.http.routers.back.rule=Host(`back.mohammedkhellafi.me`)"
-#      - "traefik.http.services.back.loadbalancer.server.port=80"
-#      - "traefik.http.routers.back.entrypoints=websecure"
-#      - "traefik.http.routers.back.tls.certresolver=leresolver"
-#      - traefik.backend=back
-#      - traefik.http.routers.back.tls=true
-#      - traefik.http.routers.back.entrypoints=web
-#      - traefik.http.routers.back.tls.certresolver=lets-encrypt
-#      - traefik.port=4000
       - "traefik.enable=true"
-      - traefik.http.routers.back.rule=Host(`back.mohammedkhellafi.me`) # domain to expose on
-      - "traefik.http.routers.back.entrypoints=websecure" # if you named your 443 entrypoint differently than webscure, substitute it here!
-      - "traefik.http.routers.back.tls.certresolver=myresolver"
+      - "traefik.http.routers.back.entrypoints=http"
+      - "traefik.http.routers.back.rule=Host(`portainer.example.com`)"
+      - "traefik.http.middlewares.back-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.back.middlewares=portainer-https-redirect"
+      - "traefik.http.routers.back-secure.entrypoints=https"
+      - "traefik.http.routers.back-secure.rule=Host(`portainer.example.com`)"
+      - "traefik.http.routers.back-secure.tls=true"
+      - "traefik.http.routers.back-secure.service=portainer"
+      - "traefik.http.services.back.loadbalancer.server.port=4000"
+      - "traefik.docker.network=web"
     container_name: server
     networks:
       - ogd
