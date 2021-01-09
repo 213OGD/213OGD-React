@@ -11,7 +11,7 @@ services:
       - "traefik.http.routers.front-secure.entrypoints=https"
       - "traefik.http.routers.front-secure.rule=Host(`front.mohammedkhellafi.me`)"
       - "traefik.http.routers.front-secure.tls=true"
-      - "traefik.http.routers.front-secure.tls.certresolver=http"
+      - "traefik.http.routers.front-secure.tls.certresolver=letsencrypt"
       - "traefik.http.services.front.loadbalancer.server.port=3000"
       - "traefik.docker.network=web"
       - traefik.backend=front
@@ -37,10 +37,10 @@ services:
       - "traefik.http.routers.back-secure.entrypoints=https"
       - "traefik.http.routers.back-secure.rule=Host(`back.mohammedkhellafi.me`)"
       - "traefik.http.routers.back-secure.tls=true"
-      - "traefik.http.routers.front-secure.tls.certresolver=http"
+      - "traefik.http.routers.front-secure.tls.certresolver=letsencrypt"
       - "traefik.http.services.back.loadbalancer.server.port=4000"
       - "traefik.docker.network=web"
-      - traefik.backend=blog
+      - traefik.backend=back
       - traefik.port=80
     container_name: server
     networks:
