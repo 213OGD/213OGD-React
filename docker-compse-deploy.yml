@@ -4,24 +4,18 @@ services:
   front:
     image: 213ogd/front
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.front.entrypoints=http"
-      - "traefik.http.routers.front.rule=Host(`front.mohammedkhellafi.me`)"
-      - "traefik.http.middlewares.front-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.front-secure.entrypoints=https"
-      - "traefik.http.routers.front-secure.rule=Host(`front.mohammedkhellafi.me`)"
-      - "traefik.http.routers.front-secure.tls=true"
-      - "traefik.http.routers.front-secure.tls.certresolver=letsencrypt"
-      - "traefik.http.services.front.loadbalancer.server.port=3000"
-      - "traefik.docker.network=web"
-      - traefik.backend=front
-      - traefik.port=80
-
+      traefik.enable: true
+      traefik.http.routers.front.rule: Host(`front.mohammedkhellafi.me`)
+      traefik.http.routers.front.entrypoints: websecure
+      traefik.http.routers.front.tls.certresolver: myresolver
+      traefik.http.services.front.loadbalancer.server.port: 3000
     build:
       context: .
     volumes:
       - ./src:/app/src
     container_name: front
+    ports:
+      - 3000:3000
     networks:
       - ogd
       - web
@@ -30,19 +24,14 @@ services:
   back:
     image: 213ogd/server
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.back.entrypoints=http"
-      - "traefik.http.routers.back.rule=Host(`back.mohammedkhellafi.me`)"
-      - "traefik.http.middlewares.back-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.back-secure.entrypoints=https"
-      - "traefik.http.routers.back-secure.rule=Host(`back.mohammedkhellafi.me`)"
-      - "traefik.http.routers.back-secure.tls=true"
-      - "traefik.http.routers.back-secure.tls.certresolver=letsencrypt"
-      - "traefik.http.services.back.loadbalancer.server.port=4000"
-      - "traefik.docker.network=web"
-      - traefik.backend=back
-      - traefik.port=80
+      traefik.enable: true
+      traefik.http.routers.back.rule: Host(`back.mohammedkhellafi.me`)
+      traefik.http.routers.back.entrypoints: websecure
+      traefik.http.routers.back.tls.certresolver: myresolver
+      traefik.http.services.back.loadbalancer.server.port: 4000
     container_name: server
+    ports:
+      - 4000:4000
     networks:
       - ogd
       - web
