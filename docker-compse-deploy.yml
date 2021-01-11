@@ -6,7 +6,6 @@ services:
       traefik.enable: true
       traefik.http.routers.front.rule: Host(`front.mohammedkhellafi.me`)
       traefik.http.routers.front.entrypoints: websecure
-      traefik.http.routers.front.tls.certresolver: myresolver
       traefik.http.services.front.loadbalancer.server.port: 3000
       traefik.docker.network: web
       traefik.backend: front
@@ -27,7 +26,6 @@ services:
       traefik.enable: true
       traefik.http.routers.back.rule: Host(`back.mohammedkhellafi.me`)
       traefik.http.routers.back.entrypoints: websecure
-      traefik.http.routers.back.tls.certresolver: myresolver
       traefik.http.services.back.loadbalancer.server.port: 4000
       traefik.docker.network: web
       traefik.backend: back
