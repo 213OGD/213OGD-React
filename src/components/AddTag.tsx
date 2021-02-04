@@ -1,10 +1,14 @@
 import React, { FormEvent, useState } from 'react';
+import CardFile from './CardFile';
 
-function AddTag(): JSX.Element {
+function AddTag(props: any): JSX.Element {
   const [tag, setTag] = useState('');
 
   function formSubmission(e: FormEvent) {
     e.preventDefault();
+    props.addTag(tag);
+    // Reset Input after entry
+    setTag('');
   }
 
   return (
