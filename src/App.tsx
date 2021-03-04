@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import GET_FILES from './queries/files.queries';
 import CardFile, { DatasProps } from './components/CardFile';
@@ -7,7 +7,11 @@ import SideBar from './components/SideBar';
 
 function App(): JSX.Element {
   const { loading, error, data } = useQuery(GET_FILES);
-  const tags = ['GraphQL', 'JS', 'Express'];
+  const tags = [
+    { id: 1, name: 'GraphQL' },
+    { id: 2, name: 'JS' },
+    { id: 3, name: 'Express' },
+  ];
 
   const getRandomColor = () => {
     var letters = '0123456789ABCDEF';
@@ -18,7 +22,6 @@ function App(): JSX.Element {
     return color;
   };
 
-  console.log(tags);
   return (
     <div className="container">
       <header>
@@ -41,6 +44,7 @@ function App(): JSX.Element {
             Tags :
             {tags.map((tag) => (
               <button
+                key={tag.id}
                 onClick={() => console.log(tag)}
                 style={{
                   margin: 4,
@@ -48,7 +52,7 @@ function App(): JSX.Element {
                   backgroundColor: `${getRandomColor()}`,
                 }}
               >
-                {tag}
+                {tag.name}
               </button>
             ))}
           </div>

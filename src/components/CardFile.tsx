@@ -12,14 +12,14 @@ export type DatasProps = {
 };
 
 function CardFile(props: DatasProps): JSX.Element {
-  const { name, webViewLink, iconLink, tags } = props;
+  const { name, webViewLink, iconLink, tags, _id } = props;
 
   const [array, setArray] = useState<string[]>(tags);
   const [warning, setWarning] = useState('');
 
   const data = {
     addTag: (res: string) => {
-      if (array.find((item) => item.toLowerCase() == res.toLowerCase())) {
+      if (array.find((item) => item.toLowerCase() === res.toLowerCase())) {
         setWarning('Ce tag existe déjà');
       } else {
         if (res.length >= 2) {
@@ -86,7 +86,7 @@ function CardFile(props: DatasProps): JSX.Element {
           ))}
         </div>
       )}
-      <AddTag {...data} />
+      <AddTag {...data} id={_id} />
       {warning && (
         <p
           style={{

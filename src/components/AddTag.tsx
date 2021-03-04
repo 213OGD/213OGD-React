@@ -1,12 +1,22 @@
 import React, { FormEvent, useState } from 'react';
-import CardFile from './CardFile';
-
+import { useMutation } from '@apollo/client';
+import ADD_TAG from '../queries/addTag.queries';
 function AddTag(props: any): JSX.Element {
   const [tag, setTag] = useState('');
+
+  const { id } = props;
+
+  const [
+    addTagToBack,
+    { loading: mutationLoading, error: mutationError },
+  ] = useMutation(ADD_TAG);
 
   function formSubmission(e: FormEvent) {
     e.preventDefault();
     props.addTag(tag);
+
+    addTagToBack({ variables: { file: { _id: id, tags: tag } } });
+
     // Reset Input after entry
     setTag('');
   }
