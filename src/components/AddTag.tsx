@@ -17,7 +17,7 @@ function AddTag(props: any): JSX.Element {
 
     addTagToBack({ variables: { file: { _id: id, tags: tag } } });
 
-    // Reset Input after entry
+    // Reset Input after entrys
     setTag('');
   }
 
