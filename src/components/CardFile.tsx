@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import AddTag from './AddTag';
+import { useMutation } from '@apollo/client';
+import DELETE_TAG from '../queries/deleteTag.queries';
 
 export type DatasProps = {
   _id: string;
@@ -16,6 +18,11 @@ function CardFile(props: DatasProps): JSX.Element {
 
   const [array, setArray] = useState<string[]>(tags);
   const [warning, setWarning] = useState('');
+
+  const [
+    deleteTagToBack,
+    { loading: mutationLoading, error: mutationError },
+  ] = useMutation(DELETE_TAG);
 
   const data = {
     addTag: (res: string) => {
@@ -34,6 +41,9 @@ function CardFile(props: DatasProps): JSX.Element {
 
   let removeTagByIndex = (tag: string) => {
     let newArray = array.filter((item) => item !== tag);
+
+    deleteTagToBack({ variables: { file: { _id, tags: tag } } });
+
     setArray(newArray);
   };
 
