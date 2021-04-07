@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 const ADD_TAG = gql`
-  mutation addTag($file: fileInput) {
-    updateTag(file: $file) {
+  mutation addTag($args: tagInput) {
+    addTag(tagInput: $args) {
       _id
       tags
     }

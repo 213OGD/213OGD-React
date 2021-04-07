@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import ADD_TAG from '../queries/addTag.queries';
 function AddTag(props: any): JSX.Element {
@@ -15,7 +15,7 @@ function AddTag(props: any): JSX.Element {
     e.preventDefault();
     props.addTag(tag);
 
-    addTagToBack({ variables: { file: { _id: id, tags: tag } } });
+    addTagToBack({ variables: { args: { idFile: id, tag: tag } } });
 
     // Reset Input after entry
     setTag('');
@@ -24,12 +24,12 @@ function AddTag(props: any): JSX.Element {
   return (
     <div>
       <form onSubmit={formSubmission}>
-        <label htmlFor="tag-name">
+        <label htmlFor={id}>
           Ajouter un tag :&nbsp;
           <br />
           <input
             type="text"
-            id="tag-name"
+            id={id}
             name="tag"
             value={tag}
             onChange={(e) => setTag(e.target.value)}

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 const DELETE_TAG = gql`
-  mutation deleteTag($file: fileInput) {
-    deleteTag(file: $file) {
+  mutation deleteTag($args: tagInput) {
+    deleteTag(tagInput: $args) {
       _id
       tags
     }

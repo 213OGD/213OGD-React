@@ -16,7 +16,7 @@ export type DatasProps = {
 function CardFile(props: DatasProps): JSX.Element {
   const { name, webViewLink, iconLink, tags, _id } = props;
 
-  const [array, setArray] = useState<string[]>(tags);
+  const [arrayList, setArrayList] = useState<string[]>(tags);
   const [warning, setWarning] = useState('');
 
   const [
@@ -26,11 +26,11 @@ function CardFile(props: DatasProps): JSX.Element {
 
   const data = {
     addTag: (res: string) => {
-      if (array.find((item) => item.toLowerCase() === res.toLowerCase())) {
+      if (arrayList.find((item) => item.toLowerCase() === res.toLowerCase())) {
         setWarning('Ce tag existe déjà');
       } else {
         if (res.length >= 2) {
-          setArray([...array, res]);
+          setArrayList([...arrayList, res]);
           setWarning('');
         } else {
           setWarning('Votre tag doit contenir 2 caractères minimum');
@@ -40,11 +40,11 @@ function CardFile(props: DatasProps): JSX.Element {
   };
 
   let removeTagByIndex = (tag: string) => {
-    let newArray = array.filter((item) => item !== tag);
+    let newArray = arrayList.filter((item) => item !== tag);
 
-    deleteTagToBack({ variables: { file: { _id, tags: tag } } });
+    deleteTagToBack({ variables: { args: { idFile: _id, tag: tag } } });
 
-    setArray(newArray);
+    setArrayList(newArray);
   };
 
   return (
@@ -63,7 +63,7 @@ function CardFile(props: DatasProps): JSX.Element {
         </a>
       </figure>
       <h3>Tags :</h3>
-      {array && array.length > 0 && (
+      {arrayList && arrayList.length > 0 && (
         <div
           style={{
             display: 'flex',
@@ -76,7 +76,7 @@ function CardFile(props: DatasProps): JSX.Element {
           }}
           className="tagContainer"
         >
-          {array.map((el, index) => (
+          {arrayList.map((el, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <p
               style={{
