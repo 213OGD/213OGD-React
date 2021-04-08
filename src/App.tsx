@@ -88,7 +88,7 @@ function App(): JSX.Element {
         {loading && <h2>loading ...</h2>}
         {error && <h2>error</h2>}
         {displayTags && displayTags.length > 0 && (
-          <div className="grid grid-cols-3 gap-4" style={{ width: '100vw' }}>
+          <div className="" style={{ width: '100vw' }}>
             <h3 className="">Tags</h3>
             {displayTags.map((tag) => (
               <div key={tag}>
