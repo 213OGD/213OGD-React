@@ -1,64 +1,78 @@
-import { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-underscore-dangle */
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import GET_FILES from './queries/files.queries';
 import CardFile, { DatasProps } from './components/CardFile';
 import './App.css';
+import './index.css';
 import SideBar from './components/SideBar';
 
 function App(): JSX.Element {
   const { loading, error, data } = useQuery(GET_FILES);
 
   const [selectedTags, setSelectedTags] = useState<string[]>(['react']);
-  //useState<DatasProps[]>([]);
-  const tags = [{ id: 1, name: 'All' }];
 
-  function tagSelection(e: any) {
-    if (e.target.value == 'all') {
+  const [displayTags, setDisplayTags] = useState<string[]>(['All']);
+
+  function tagSelection(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.value === 'all') {
       if (e.target.checked) {
         setSelectedTags(['all']);
       } else {
         setSelectedTags([]);
       }
     }
-    if (e.target.value != 'all') {
+    if (e.target.value !== 'all') {
       if (e.target.checked) {
-        const removeTagAll = selectedTags.filter((tagName) => tagName != 'all');
+        const removeTagAll = selectedTags.filter(
+          (tagName) => tagName !== 'all'
+        );
         setSelectedTags([...removeTagAll, e.target.value]);
       }
       if (!e.target.checked) {
         const removeTag = selectedTags.filter(
-          (tagName) => tagName != e.target.value
+          (tagName) => tagName !== e.target.value
         );
-        console.log('removeTag', removeTag);
         setSelectedTags(removeTag);
       }
-      console.log(selectedTags);
     }
   }
 
-  function isFileSelected(fileTags: string[], selectedTags: string[]): Boolean {
-    if (selectedTags.includes('all')) return true;
+  function isFileSelected(
+    fileTags: string[],
+    selectedTagsArray: string[]
+  ): boolean {
+    if (selectedTagsArray.includes('all')) return true;
     return fileTags.some((fileTag) =>
-      selectedTags.includes(fileTag.toLowerCase())
+      selectedTagsArray.includes(fileTag.toLowerCase())
     );
   }
 
-  data &&
-    data.files.map((file: JSX.IntrinsicAttributes & DatasProps) => {
-      file.tags.forEach((tag) => {
-        if (
-          tags.findIndex(
-            (copy) => copy.name.toLowerCase() == tag.toLowerCase()
-          ) == -1
-        ) {
-          tags.push({ id: Math.random() * 1000, name: tag });
+  const getTags = () => {
+    const getAllFiles = data;
+    if (!loading && getAllFiles.files) {
+      getAllFiles.files.forEach(
+        (file: JSX.IntrinsicAttributes & DatasProps) => {
+          file.tags.forEach((tag) => {
+            if (
+              displayTags.findIndex(
+                (copy) => copy.toLowerCase() === tag.toLowerCase()
+              ) === -1
+            ) {
+              setDisplayTags([...displayTags, tag]);
+            }
+          });
         }
-      });
-    });
+      );
+    }
+  };
+
+  getTags(); // Get Tags and List them (front)
 
   return (
-    <div className="container">
-      <header>
+    <div className="container bg-gradient-to-r from-green-900 to-red-700 ">
+      <header className="w-full rounded-lg">
         <h1>213 Odyssey Google Drive</h1>
       </header>
       <div
@@ -73,47 +87,44 @@ function App(): JSX.Element {
       >
         {loading && <h2>loading ...</h2>}
         {error && <h2>error</h2>}
-        {tags && tags.length > 0 && (
-          <div style={{ width: '100vw', backgroundColor: 'yellow' }}>
-            <h3>Tags</h3>
-            {tags.map((tag) => (
-              <div key={tag.id}>
+        {displayTags && displayTags.length > 0 && (
+          <div className="grid grid-cols-3 gap-4" style={{ width: '100vw' }}>
+            <h3 className="">Tags</h3>
+            {displayTags.map((tag) => (
+              <div key={tag}>
                 <input
                   type="checkbox"
-                  name={tag.name.toLowerCase()}
-                  value={tag.name.toLowerCase()}
-                  id={tag.id.toString()}
+                  name={tag.toLowerCase()}
+                  value={tag.toLowerCase()}
+                  id={tag}
                   onChange={tagSelection}
                   checked={
                     selectedTags.findIndex(
-                      (tagName) =>
-                        tagName.toLowerCase() == tag.name.toLowerCase()
-                    ) != -1
-                      ? true
-                      : false
+                      (tagName) => tagName.toLowerCase() === tag.toLowerCase()
+                    ) !== -1
                   }
-                ></input>
+                />
                 <label
-                  htmlFor={tag.id.toString()}
+                  htmlFor={tag}
                   style={{
                     margin: 4,
                     padding: 4,
                     backgroundColor: '#00f0ff',
                   }}
                 >
-                  {tag.name}
+                  {tag}
                 </label>
               </div>
             ))}
           </div>
         )}
-
         {data &&
           data.files.map((file: JSX.IntrinsicAttributes & DatasProps) => {
             // eslint-disable-next-line react/jsx-props-no-spreading, no-underscore-dangle
-            if (isFileSelected(file.tags, selectedTags) == true) {
-              return <CardFile key={file._id} {...file} />;
-            }
+            return isFileSelected(file.tags, selectedTags) === true ? (
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              <CardFile key={file._id} {...file} />
+            ) : null;
           })}
       </div>
       <SideBar />

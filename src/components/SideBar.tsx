@@ -13,6 +13,9 @@ function SideBar(): JSX.Element {
         <a href="#" className="active">
           Ressources
         </a>
+        <a href="#" style={{ color: 'purple', cursor: 'not-allowed' }}>
+          Coming Soon !
+        </a>
       </nav>
     </div>
   );
