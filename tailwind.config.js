@@ -1,6 +1,6 @@
 // tailwind.config.js
+const colors = require('tailwindcss/colors');
 module.exports = {
-  purge: [],
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -15,9 +15,7 @@ module.exports = {
       red: colors.rose,
       yellow: colors.amber,
       blue: colors.blue,
-      green: colors.green,
-      gray: colors.gray,
-      coolgray: colors.coolgray,
+      green: colors.emerald,
     },
     extend: {},
   },
