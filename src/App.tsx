@@ -83,7 +83,7 @@ function App(): JSX.Element {
           justifyContent: 'space-evenly',
           alignItems: 'stretch',
         }}
-        className="container-cards"
+        className="container-cards rounded-xl p-8"
       >
         {loading && <h2>loading ...</h2>}
         {error && <h2>error</h2>}
