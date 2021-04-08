@@ -1,6 +1,7 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
-import AddTag from './AddTag';
 import { useMutation } from '@apollo/client';
+import AddTag from './AddTag';
 import DELETE_TAG from '../queries/deleteTag.queries';
 
 export type DatasProps = {
@@ -10,10 +11,10 @@ export type DatasProps = {
   webViewLink: string;
   iconLink: string;
   tags: string[];
-  getTags: any;
 };
 
 function CardFile(props: DatasProps): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { name, webViewLink, iconLink, tags, _id } = props;
 
   const [arrayList, setArrayList] = useState<string[]>(tags);
@@ -21,6 +22,7 @@ function CardFile(props: DatasProps): JSX.Element {
 
   const [
     deleteTagToBack,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     { loading: mutationLoading, error: mutationError },
   ] = useMutation(DELETE_TAG);
 
@@ -29,6 +31,7 @@ function CardFile(props: DatasProps): JSX.Element {
       if (arrayList.find((item) => item.toLowerCase() === res.toLowerCase())) {
         setWarning('Ce tag existe déjà');
       } else {
+        // eslint-disable-next-line no-lonely-if
         if (res.length >= 2) {
           setArrayList([...arrayList, res]);
           setWarning('');
@@ -39,10 +42,10 @@ function CardFile(props: DatasProps): JSX.Element {
     },
   };
 
-  let removeTagByIndex = (tag: string) => {
-    let newArray = arrayList.filter((item) => item !== tag);
+  const removeTagByIndex = (tag: string) => {
+    const newArray = arrayList.filter((item) => item !== tag);
 
-    deleteTagToBack({ variables: { args: { idFile: _id, tag: tag } } });
+    deleteTagToBack({ variables: { args: { idFile: _id, tag } } });
 
     setArrayList(newArray);
   };
@@ -76,8 +79,7 @@ function CardFile(props: DatasProps): JSX.Element {
           }}
           className="tagContainer"
         >
-          {arrayList.map((el, index) => (
-            // eslint-disable-next-line react/no-array-index-key
+          {arrayList.map((el) => (
             <p
               style={{
                 fontSize: 12,
@@ -89,9 +91,12 @@ function CardFile(props: DatasProps): JSX.Element {
                 margin: 2,
                 padding: 2,
               }}
-              key={index}
+              key={el}
             >
-              {el} <button onClick={() => removeTagByIndex(el)}>X</button>
+              {el}{' '}
+              <button type="submit" onClick={() => removeTagByIndex(el)}>
+                X
+              </button>
             </p>
           ))}
         </div>

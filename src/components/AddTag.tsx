@@ -1,6 +1,8 @@
-import { FormEvent, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { FormEvent, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import ADD_TAG from '../queries/addTag.queries';
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function AddTag(props: any): JSX.Element {
   const [tag, setTag] = useState('');
 
@@ -8,6 +10,7 @@ function AddTag(props: any): JSX.Element {
 
   const [
     addTagToBack,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     { loading: mutationLoading, error: mutationError },
   ] = useMutation(ADD_TAG);
 
@@ -15,7 +18,7 @@ function AddTag(props: any): JSX.Element {
     e.preventDefault();
     props.addTag(tag);
 
-    addTagToBack({ variables: { args: { idFile: id, tag: tag } } });
+    addTagToBack({ variables: { args: { idFile: id, tag } } });
 
     // Reset Input after entry
     setTag('');
