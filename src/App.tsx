@@ -71,7 +71,7 @@ function App(): JSX.Element {
   getTags(); // Get Tags and List them (front)
 
   return (
-    <div className="container bg-gradient-to-r from-green-900 to-red-700 ">
+    <div className="container bg-cyan-500">
       <header className="w-full rounded-lg">
         <h1>213 Odyssey Google Drive</h1>
       </header>
