@@ -59,7 +59,7 @@ function App(): JSX.Element {
               ))}
             </div>
           )}
-          <div className="flex flex-wrap items-start justify-between flex-row p-2 bg-blue-200 h-96 overflow-auto">
+          <div className="flex flex-wrap items-start justify-start flex-row p-2 bg-blue-200 h-96 overflow-auto">
             {data &&
               data.files.map((file: JSX.IntrinsicAttributes & DatasProps) => {
                 // eslint-disable-next-line react/jsx-props-no-spreading, no-underscore-dangle
