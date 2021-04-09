@@ -17,7 +17,11 @@ module.exports = {
       blue: colors.blue,
       green: colors.emerald,
     },
-    extend: {},
+    extend: {
+      backgroundImage: (theme) => ({
+        wild: "url('./bg-wild.jpeg')",
+      }),
+    },
   },
   variants: {
     extend: {},

@@ -51,10 +51,11 @@ function CardFile(props: DatasProps): JSX.Element {
   };
 
   return (
-    <div style={{ width: 250 }} className="card">
+    <div className="p-4 m-2 border-2 border-black border-opacity-30">
       <figure>
         <a href={webViewLink}>
           <img
+            className="w-12 h-12"
             src={
               iconLink
                 ? iconLink.replace('16', '256')
@@ -62,35 +63,15 @@ function CardFile(props: DatasProps): JSX.Element {
             }
             alt={name}
           />
-          <figcaption>{name}</figcaption>
+          <figcaption className="text-center">{name}</figcaption>
         </a>
       </figure>
       <h3>Tags :</h3>
       {arrayList && arrayList.length > 0 && (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignContent: 'flex-start',
-            flexWrap: 'wrap',
-            height: 100,
-            overflow: 'auto',
-          }}
-          className="tagContainer"
-        >
+        <div className="tagContainer flex flex-row justify-center content-start flex-wrap h-10 overflow-auto">
           {arrayList.map((el) => (
             <p
-              style={{
-                fontSize: 12,
-                borderWidth: 1,
-                borderColor: 'black',
-                borderStyle: 'solid',
-                borderRadius: 4,
-                backgroundColor: '#bffff1',
-                margin: 2,
-                padding: 2,
-              }}
+              className="rounded border border-black m-0.5 p-0.5 bg-green-100"
               key={el}
             >
               {el}{' '}
@@ -103,16 +84,7 @@ function CardFile(props: DatasProps): JSX.Element {
       )}
       <AddTag {...data} id={_id} />
       {warning && (
-        <p
-          style={{
-            backgroundColor: '#9c2a2a',
-            color: 'white',
-            textShadow: 'black',
-            fontWeight: 'bold',
-          }}
-        >
-          {warning}
-        </p>
+        <p className="bg-red-800 text-white font-bold rounded">{warning}</p>
       )}
     </div>
   );

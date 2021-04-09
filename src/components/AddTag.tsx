@@ -35,10 +35,13 @@ function AddTag(props: any): JSX.Element {
             id={id}
             name="tag"
             value={tag}
+            className="rounded-full border-1 border-black-100 p-0.5"
             onChange={(e) => setTag(e.target.value)}
           />
         </label>
-        <button type="submit">OK</button>
+        <button className="bg-green-500 p-1 rounded-lg" type="submit">
+          OK
+        </button>
       </form>
     </div>
   );

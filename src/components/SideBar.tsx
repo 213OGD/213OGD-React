@@ -3,8 +3,8 @@ import React from 'react';
 
 function SideBar(): JSX.Element {
   return (
-    <div className="fullbarV">
-      <nav className="sidebar">
+    <div className="fullbarV p-4 w-40">
+      <nav className="sidebar flex flex-col">
         <a href="#">Dashboard</a>
         <a href="#">Agenda</a>
         <a href="#">Quêtes</a>
