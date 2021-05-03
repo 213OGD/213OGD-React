@@ -1,6 +1,7 @@
-* {
+/* * {
   box-sizing: border-box;
-}body {
+} */
+/* body {
   margin: 0;
 }
 header {
@@ -56,10 +57,10 @@ header h1 {
 }
 
 .sidebar .active {
-    color: red;
-}
+  color: red;
+} */
 
-.login-page{
+/* .login-page{
     display: flex;
     height: 100vh;
     justify-content: center;
@@ -82,4 +83,4 @@ header h1 {
 }
 .login-page div form input:focus{
     border-radius: 7px;
-}
+} */

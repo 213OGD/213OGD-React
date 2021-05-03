@@ -4,6 +4,10 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    fontFamily: {
+      sans: ['Open Sans', 'sans-serif'],
+      heading: ['PT Sans', 'sans-serif'],
+    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
@@ -17,7 +21,11 @@ module.exports = {
       blue: colors.blue,
       green: colors.emerald,
     },
-    extend: {},
+    extend: {
+      backgroundImage: (theme) => ({
+        wild: "url('./bg-wild.jpeg')",
+      }),
+    },
   },
   variants: {
     extend: {},

@@ -64,34 +64,69 @@ function Login(): JSX.Element {
   }
 
   return (
-    <div className="login-page">
-      <div>
-        <h1>Google Drive 213</h1>
-        <form onSubmit={loginSubmission}>
-          <p>
-            <label htmlFor="mail">
-              Email :&nbsp;
-              <input
-                type="text"
-                name="mail"
-                value={mail}
-                onChange={(e) => setMail(e.target.value)}
-              />
-            </label>
-          </p>
-          <p>
-            <label htmlFor="password">
-              Mot de passe :&nbsp;
-              <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </label>
-          </p>
-          {flashMessage !== '' && <p>{flashMessage}</p>}
-          <button type="submit">Se connecter</button>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+        <img
+          className="mx-auto h-20 w-auto"
+          src="https://avatars.githubusercontent.com/u/8874047?s=280&v=4"
+          alt="Workflow"
+        />
+        <h1 className="mt-6 text-center text-3xl font-extrabold text-gray-500">
+          Google Drive 213
+        </h1>
+        <p className="mt-2 text-center text-sm text-gray-600">
+          Continue your journey
+        </p>
+        <form className="mt-8 space-y-6" onSubmit={loginSubmission}>
+          <div className="rounded-lg shadow-xl -space-y-px">
+            <div>
+              <label htmlFor="mail">
+                <input
+                  type="text"
+                  name="mail"
+                  value={mail}
+                  onChange={(e) => setMail(e.target.value)}
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-100 text-gray-900 rounded-t-md focus:outline-none focus:ring-red-300 focus:border-red-400 focus:z-10 sm:text-sm"
+                  placeholder="Email address"
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="password">
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-100 text-gray-900 rounded-b-md focus:outline-none focus:ring-red-300 focus:border-red-400 focus:z-10 sm:text-sm"
+                />
+              </label>
+            </div>
+          </div>
+          <div className="flex items-center justify-center text-red-600 animate-bounce">
+            {flashMessage !== '' && <p>{flashMessage}</p>}
+          </div>
+          <button
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-red-400 hover:text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-200"
+            type="submit"
+          >
+            <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+              <svg
+                className="h-5 w-5 text-white group-hover:text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </span>
+            Sign in
+          </button>
         </form>
       </div>
     </div>
