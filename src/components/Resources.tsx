@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
@@ -14,34 +14,31 @@ import { IS_AUTH } from '../queries/users.queries';
 function Resources(): JSX.Element {
   const history = useHistory();
   const { loading, error, data } = useQuery(GET_FILES);
-  const [authLoad, setAuthLoad] = useState(true);
-  const [isAuth, setIsAuth] = useState(false);
+  const [authLoad, setAuthLoad] = useState(false);
 
   const token = localStorage.getItem('token');
   const [reqAuth] = useMutation(IS_AUTH);
 
-  async function checkAuth() {
-    setAuthLoad(true);
-    if (token === null) {
-      history.push('/');
-    }
-    if (token) {
-      try {
-        const auth = await reqAuth({ variables: { token } });
-        console.log(auth);
-        console.log('isAuth', auth.data.getAuthPayload);
-        setIsAuth(auth.data.getAuthPayload);
-        setAuthLoad(false);
-      } catch (err) {
-        console.log('err', err.message);
-        setIsAuth(false);
-        setAuthLoad(false);
+  useEffect(() => {
+    async function checkAuth() {
+      if (token === null) {
         history.push('/');
       }
+      if (token) {
+        try {
+          const auth = await reqAuth({ variables: { token } });
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+          auth.data.getAuthPayload ? setAuthLoad(true) : history.push('/');
+        } catch (err) {
+          console.log('err', err.message);
+          setAuthLoad(false);
+          history.push('/');
+        }
+      }
+      // setAuthLoad(false);
     }
-    setIsAuth(false);
-    setAuthLoad(false);
-  }
+    checkAuth();
+  }, []);
 
   // console.log(process.env.REACT_APP_URI, 'FILES', data);
   function disconnect() {
@@ -56,12 +53,18 @@ function Resources(): JSX.Element {
     isFileSelected,
   ] = useTagSelection(data, loading);
 
-  return authLoad ? (
-    <h1>loading !!!</h1>
+  // return (
+  return !authLoad ? (
+    <>
+      <h1>loading !!!</h1>
+    </>
   ) : (
     <div className="container">
       <header className="w-full rounded-lg">
         <h1>213 Odyssey Google Drive</h1>
+        <button type="button" onClick={disconnect}>
+          LogOut
+        </button>
       </header>
       <div
         style={{
