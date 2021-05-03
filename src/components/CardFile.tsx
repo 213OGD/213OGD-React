@@ -1,5 +1,8 @@
-import React from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import AddTag from './AddTag';
+import DELETE_TAG from '../queries/deleteTag.queries';
 
 export type DatasProps = {
   _id: string;
@@ -11,25 +14,106 @@ export type DatasProps = {
 };
 
 function CardFile(props: DatasProps): JSX.Element {
-  const { name, webViewLink, iconLink, tags } = props;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const { name, webViewLink, iconLink, tags, _id } = props;
+
+  const [arrayList, setArrayList] = useState<string[]>(tags);
+  const [warning, setWarning] = useState('');
+
+  const [
+    deleteTagToBack,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    { loading: mutationLoading, error: mutationError },
+  ] = useMutation(DELETE_TAG);
+
+  const data = {
+    addTag: (res: string) => {
+      if (arrayList.find((item) => item.toLowerCase() === res.toLowerCase())) {
+        setWarning('Ce tag existe déjà');
+      } else {
+        // eslint-disable-next-line no-lonely-if
+        if (res.length >= 2) {
+          setArrayList([...arrayList, res]);
+          setWarning('');
+        } else {
+          setWarning('Votre tag doit contenir 2 caractères minimum');
+        }
+      }
+    },
+  };
+
+  const removeTagByIndex = (tag: string) => {
+    const newArray = arrayList.filter((item) => item !== tag);
+
+    deleteTagToBack({ variables: { args: { idFile: _id, tag } } });
+
+    setArrayList(newArray);
+  };
 
   return (
-    <div className="card">
+    <div style={{ width: 250 }} className="card">
       <figure>
         <a href={webViewLink}>
-          <img src={iconLink} alt={name} />
+          <img
+            src={
+              iconLink
+                ? iconLink.replace('16', '256')
+                : 'https://previews.123rf.com/images/kritchanut/kritchanut1405/kritchanut140500357/28235040-man-silhouette-icon-with-question-mark-sign-anonymous-suspect-concept.jpg'
+            }
+            alt={name}
+          />
           <figcaption>{name}</figcaption>
         </a>
       </figure>
       <h3>Tags :</h3>
-      <ul>
-        {tags &&
-          tags.map((el, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <li key={index}>{el}</li>
+      {arrayList && arrayList.length > 0 && (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignContent: 'flex-start',
+            flexWrap: 'wrap',
+            height: 100,
+            overflow: 'auto',
+          }}
+          className="tagContainer"
+        >
+          {arrayList.map((el) => (
+            <p
+              style={{
+                fontSize: 12,
+                borderWidth: 1,
+                borderColor: 'black',
+                borderStyle: 'solid',
+                borderRadius: 4,
+                backgroundColor: '#bffff1',
+                margin: 2,
+                padding: 2,
+              }}
+              key={el}
+            >
+              {el}{' '}
+              <button type="submit" onClick={() => removeTagByIndex(el)}>
+                X
+              </button>
+            </p>
           ))}
-      </ul>
-      <AddTag />
+        </div>
+      )}
+      <AddTag {...data} id={_id} />
+      {warning && (
+        <p
+          style={{
+            backgroundColor: '#9c2a2a',
+            color: 'white',
+            textShadow: 'black',
+            fontWeight: 'bold',
+          }}
+        >
+          {warning}
+        </p>
+      )}
     </div>
   );
 }
