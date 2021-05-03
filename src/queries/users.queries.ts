@@ -13,3 +13,9 @@ const POST_LOG = gql`
 `;
 
 export default POST_LOG;
+
+export const IS_AUTH = gql`
+  mutation getPayload($token: String!) {
+    getAuthPayload(token: $token)
+  }
+`;
