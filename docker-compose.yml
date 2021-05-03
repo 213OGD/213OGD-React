@@ -8,6 +8,7 @@ services:
     volumes:
       - ./src:/app/src
       - ./tailwind.config.js:/app/tailwind.config.js
+      - ./craco.config.js:/app/craco.config.js
     ports:
       - 3000:3000
     container_name: front

@@ -1,7 +1,6 @@
-/* * {
+* {
   box-sizing: border-box;
-} */
-/* body {
+}body {
   margin: 0;
 }
 header {
@@ -64,8 +63,6 @@ header h1 {
     display: flex;
     height: 100vh;
     justify-content: center;
-    align-content: center;
-    align-self: center;
     align-items: center;
 }
 
@@ -81,6 +78,7 @@ header h1 {
 .login-page div form input{
     padding: 0.5em;
     border-radius: 7px;
+    color: black;
 }
 .login-page div form input:focus{
     border-radius: 7px;
