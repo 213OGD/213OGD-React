@@ -60,7 +60,7 @@ function Resources(): JSX.Element {
     </>
   ) : (
     <div className="container">
-      <header className="w-full rounded-lg">
+      <header className="w-full bg-wild rounded-lg">
         <h1>213 Odyssey Google Drive</h1>
         <button type="button" onClick={disconnect}>
           LogOut
