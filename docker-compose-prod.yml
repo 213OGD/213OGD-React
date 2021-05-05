@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  front:
+    command: sh -c "npm run build"
+    volumes:
+      - build:/app/build
+
+  nginx:
+    image: nginx:1.19.10
+    restart: always
+    ports:
+      - ${GATEWAY_PORT}:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - build:/build
+
+volumes:
+  build:

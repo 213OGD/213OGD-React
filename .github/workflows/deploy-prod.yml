@@ -1,0 +1,22 @@
+name: Deploy Prod
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_run:
+    workflows:
+      - Build and push on Docker Hub
+    types:
+      - completed
+      - requested
+jobs:
+  deploy:
+
+  runs-on: [self-hosted]
+  steps:
+    - uses: actions/checkout@v2
+    -
+      name: Deploy to Prod
+      run: PORT=${{ secrets.PROD_PORT }}

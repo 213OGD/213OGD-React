@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  front:
+    image: 213ogd/front
+    container_name: front
+    environment:
+      - REACT_APP_URI=${REACT_APP_URI}
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src:/app/src
+    command: npm start
+    stdin_open: true
