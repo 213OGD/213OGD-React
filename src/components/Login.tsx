@@ -72,7 +72,7 @@ function Login(): JSX.Element {
           alt="Workflow"
         />
         <h1 className="mt-6 text-center text-3xl font-extrabold text-gray-500">
-          Google Drive 213 OU 214 OU PAS
+          Google Drive 213 OU 214
         </h1>
         <p className="mt-2 text-center text-gray-600">Continue your journey</p>
         <form className="mt-8 space-y-6" onSubmit={loginSubmission}>
