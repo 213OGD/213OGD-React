@@ -20,3 +20,21 @@ chmod 755 start_dev.sh
 ```sh
 sh ./start_dev.sh
 ```
+
+## Démarrer en prod
+
+### 1. Rendre le fichier start_prod.sh executable
+
+```sh 
+chmod +x start_prod.sh
+```
+OU
+```sh 
+chmod 755 start_prod.sh
+``` 
+
+### 2. Préciser le port & lancer le projet docker-compose avec la cmd
+
+```sh
+PORT=*PORT* sh ./start_prod.sh
+```
