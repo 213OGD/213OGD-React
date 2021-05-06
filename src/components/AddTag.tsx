@@ -25,12 +25,13 @@ function AddTag(props: any): JSX.Element {
   }
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <form onSubmit={formSubmission}>
         <label htmlFor={id}>
           Ajouter un tag :&nbsp;
           <br />
           <input
+            className=""
             type="text"
             id={id}
             name="tag"
@@ -38,7 +39,9 @@ function AddTag(props: any): JSX.Element {
             onChange={(e) => setTag(e.target.value)}
           />
         </label>
-        <button type="submit">OK</button>
+        <button className="bg-gray-400 rounded-md p-2" type="submit">
+          OK
+        </button>
       </form>
     </div>
   );

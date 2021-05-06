@@ -51,10 +51,11 @@ function CardFile(props: DatasProps): JSX.Element {
   };
 
   return (
-    <div style={{ width: 250 }} className="card">
+    <div className="w-72 rounded-2xl shadow-lg mt-5 p-2">
       <figure>
         <a href={webViewLink}>
           <img
+            className="h-12"
             src={
               iconLink
                 ? iconLink.replace('16', '256')
@@ -67,34 +68,15 @@ function CardFile(props: DatasProps): JSX.Element {
       </figure>
       <h3>Tags :</h3>
       {arrayList && arrayList.length > 0 && (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignContent: 'flex-start',
-            flexWrap: 'wrap',
-            height: 100,
-            overflow: 'auto',
-          }}
-          className="tagContainer"
-        >
+        <div className="flex flex-row">
           {arrayList.map((el) => (
-            <p
-              style={{
-                fontSize: 12,
-                borderWidth: 1,
-                borderColor: 'black',
-                borderStyle: 'solid',
-                borderRadius: 4,
-                backgroundColor: '#bffff1',
-                margin: 2,
-                padding: 2,
-              }}
-              key={el}
-            >
+            <p className="py-3 px-1" key={el}>
               {el}{' '}
-              <button type="submit" onClick={() => removeTagByIndex(el)}>
+              <button
+                className="bg-gray-400 py-1 px-2rounded-md"
+                type="submit"
+                onClick={() => removeTagByIndex(el)}
+              >
                 X
               </button>
             </p>
