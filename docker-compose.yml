@@ -2,15 +2,5 @@ version: '3.3'
 
 services:
   front:
-    image: 213ogd/front
     build:
       context: .
-    volumes:
-      - ./src:/app/src
-      - ./tailwind.config.js:/app/tailwind.config.js
-      - ./craco.config.js:/app/craco.config.js
-    ports:
-      - 3000:3000
-    container_name: front
-    environment:
-      - REACT_APP_URI=${REACT_APP_URI}

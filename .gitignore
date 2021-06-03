@@ -12,6 +12,7 @@
 
 # production
 /build
+nginx/log
 
 # misc
 .DS_Store
