@@ -23,7 +23,7 @@ module.exports = {
     },
     extend: {
       backgroundImage: (theme) => ({
-        wild: "url('./bg-wild.jpeg')",
+        wild: "url('./images/bg-wild.jpeg')",
       }),
     },
   },

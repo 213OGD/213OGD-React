@@ -11,6 +11,8 @@ import '../App.css';
 import SideBar from './SideBar';
 import { IS_AUTH } from '../queries/users.queries';
 
+import logo from '../images/Drive-Logo.png';
+
 function Resources(): JSX.Element {
   const history = useHistory();
   const { loading, error, data } = useQuery(GET_FILES);
@@ -60,19 +62,14 @@ function Resources(): JSX.Element {
     </>
   ) : (
     <div className="mx-auto">
-      <header className="flex justify-between mx-auto bg-wild bg-cover h-28 shadow-md">
+      <header className="flex items-center justify-between mx-auto bg-wild bg-cover h-32 shadow-lg">
         <div className="flex flex-col items-center pl-6">
-          <img
-            className="h-6 xl:h-14"
-            src="https://i1.wp.com/cdn3.iconfinder.com/data/icons/social-media-logos-ii-filled-line/2048/5346_-_Google_Drive-512.png?resize=640%2C542&ssl=1"
-            alt="logo OGD 213"
-          />
-
+          <img className="h-6 xl:h-14" src={logo} alt="logo OGD 213" />
           <h1 className="font-mono text-white">Odyssey Google Drive</h1>
-          <h2 className="text-white">213</h2>
+          <h2 className="text-gray-700">213</h2>
         </div>
         <button
-          className="text-white hover:text-red-400 hover:bg-gray-100 text-sm text-center rounded-md px-2 py-2 m-1 transition duration-500 ease select-none focus:outline-none focus:shadow-outline font-semibold"
+          className="text-white hover:text-red-400 hover:bg-gray-100 text-sm text-center rounded-md px-2 py-2 m-2 transition duration-500 ease select-none focus:outline-none focus:shadow-outline font-semibold"
           type="button"
           onClick={disconnect}
         >
@@ -107,7 +104,7 @@ function Resources(): JSX.Element {
             ))}
           </div>
         )}
-        <div className="flex flex-row flex-wrap space-x-6">
+        <div className="flex flex-row flex-wrap">
           {data &&
             data.files.map((file: JSX.IntrinsicAttributes & DatasProps) => {
               // eslint-disable-next-line react/jsx-props-no-spreading, no-underscore-dangle
@@ -117,9 +114,6 @@ function Resources(): JSX.Element {
               ) : null;
             })}
         </div>
-      </div>
-      <div className="">
-        <SideBar />
       </div>
     </div>
   );
