@@ -13,7 +13,6 @@ function App(): JSX.Element {
           <Route path="/" exact component={Login} />
           <Route path="/home" exact component={Resources} />
           <Route path="/signup" exact component={Signup} />
-          {/* <Route path="/home" exact render={Resources} /> */}
           <Route render={() => <h1>404: page not found</h1>} />
         </Switch>
       </Router>
