@@ -126,6 +126,9 @@ function Login(): JSX.Element {
             </span>
             Sign in
           </button>
+          <button type="submit" onClick={() => history.push('/signup')}>
+            Sign up
+          </button>
         </form>
       </div>
     </div>
