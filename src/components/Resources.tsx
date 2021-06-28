@@ -19,6 +19,7 @@ function Resources(): JSX.Element {
   const [authLoad, setAuthLoad] = useState(false);
 
   const token = localStorage.getItem('token');
+  const username = localStorage.getItem('username');
   const [reqAuth] = useMutation(IS_AUTH);
 
   useEffect(() => {
@@ -68,13 +69,16 @@ function Resources(): JSX.Element {
           <h1 className="font-mono text-white">Odyssey Google Drive</h1>
           <h2 className="text-gray-700 font-semibold">213</h2>
         </div>
-        <button
-          className="text-white hover:text-red-400 hover:bg-gray-100 text-sm text-center rounded-md px-2 py-2 m-2 transition duration-500 ease select-none focus:outline-none focus:shadow-outline font-semibold"
-          type="button"
-          onClick={disconnect}
-        >
-          LogOut
-        </button>
+        <div className="text-white font-semibold">
+          {username && `Hello ${username}`}
+          <button
+            className="text-white hover:text-red-400 hover:bg-gray-100 text-sm text-center rounded-md px-2 py-2 m-2 transition duration-500 ease select-none focus:outline-none focus:shadow-outline font-semibold"
+            type="button"
+            onClick={disconnect}
+          >
+            LogOut
+          </button>
+        </div>
       </header>
       <div className="p-6">
         {loading && <h2>loading ...</h2>}
