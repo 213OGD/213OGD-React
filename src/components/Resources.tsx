@@ -59,7 +59,7 @@ function Resources(): JSX.Element {
   // return (
   return !authLoad ? (
     <>
-      <h1>loading !!!</h1>
+      <h1>loading ...</h1>
     </>
   ) : (
     <div className="mx-auto">
