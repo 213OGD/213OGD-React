@@ -64,9 +64,9 @@ function Resources(): JSX.Element {
     <div className="mx-auto">
       <header className="flex items-center justify-between mx-auto bg-wild bg-cover h-32 shadow-lg">
         <div className="flex flex-col items-center pl-6">
-          <img className="h-6 xl:h-14" src={logo} alt="logo OGD 213" />
+          <img className="h-12 xl:h-14" src={logo} alt="logo OGD 213" />
           <h1 className="font-mono text-white">Odyssey Google Drive</h1>
-          <h2 className="text-gray-700">213</h2>
+          <h2 className="text-gray-700 font-semibold">213</h2>
         </div>
         <button
           className="text-white hover:text-red-400 hover:bg-gray-100 text-sm text-center rounded-md px-2 py-2 m-2 transition duration-500 ease select-none focus:outline-none focus:shadow-outline font-semibold"
@@ -81,7 +81,7 @@ function Resources(): JSX.Element {
         {error && <h2>error</h2>}
         {displayTags && displayTags.length > 0 && (
           <div className="flex flex-row flex-wrap items-center">
-            <h3 className="pl-4 pr-4 ">Tags</h3>
+            <h3 className="pl-4 pr-4 ">Tags :</h3>
             {displayTags.map((tag: string) => (
               <div key={tag} className="my-2 xl:my-6">
                 <input

@@ -126,6 +126,13 @@ function Login(): JSX.Element {
             </span>
             Sign in
           </button>
+          <button
+            className="group relative w-full transition duration-500 ease-in-out flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-red-400 hover:text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-200 transition-shadow"
+            type="submit"
+            onClick={() => history.push('/signup')}
+          >
+            Sign up
+          </button>
         </form>
       </div>
     </div>

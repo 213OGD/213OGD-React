@@ -55,7 +55,7 @@ function CardFile(props: DatasProps): JSX.Element {
   const [show, setShow] = useState(false);
 
   return (
-    <div className="w-1/8 rounded-2xl shadow-lg my-6 mr-4 p-3">
+    <div className="w-60 rounded-2xl shadow-lg my-6 mr-4 p-3">
       <figure>
         <a href={webViewLink}>
           <img
@@ -78,7 +78,7 @@ function CardFile(props: DatasProps): JSX.Element {
             onClick={() => setShow(!show)}
           >
             <p className="pl-3 py-3 text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal font-normal">
-              Tags
+              Tags utilis&eacute;s
             </p>
             <div className="cursor-pointer text-gray-600 dark:text-gray-400 mr-3">
               {show ? (
@@ -125,7 +125,7 @@ function CardFile(props: DatasProps): JSX.Element {
                 >
                   {el}{' '}
                   <button
-                    className="bg-red-400 p-1 rounded-full text-white hover:bg-white hover:text-red-400"
+                    className="bg-red-400 ml-1 p-1 rounded-full text-white hover:bg-white hover:text-red-400"
                     type="submit"
                     onClick={() => removeTagByIndex(el)}
                   >
