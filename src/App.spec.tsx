@@ -1,9 +1,9 @@
 import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { render, screen, waitFor } from '@testing-library/react';
-import App from './App';
 import Resource from './components/Resources';
 import GET_FILES from './queries/files.queries';
+import { IS_AUTH } from './queries/users.queries';
 
 const mocks = [
   {
@@ -27,34 +27,48 @@ const mocks = [
       },
     },
   },
+  {
+    request: {
+      query: IS_AUTH,
+      variables: {
+        token: 'toto',
+      },
+    },
+    result: {
+      data: {
+        getAuthPayload: true,
+      },
+    },
+  },
 ];
 
 describe('App', () => {
+  it("test auth with good token & don't wait for datas", async () => {
+    localStorage.setItem('token', 'toto');
+    render(
+      <MockedProvider mocks={mocks}>
+        <Resource />
+      </MockedProvider>
+    );
 
-  it('Stop by Auth', () => {
-    render(<h1>Hello</h1>);
-
-    expect(screen.getByText('Hello')).toBeInTheDocument();
+    expect(screen.getByText('loading ...')).toBeInTheDocument();
   });
 
-  // it('Apollo runs the mocked query & useQuery state is loading', () => {
-  //   render(
-  //     <MockedProvider mocks={mocks}>
-  //       <Resource />
-  //     </MockedProvider>
-  //   );
+  it('test auth with good token & wait for datas', async () => {
+    localStorage.setItem('token', 'toto');
+    render(
+      <MockedProvider mocks={mocks}>
+        <Resource />
+      </MockedProvider>
+    );
 
-  //   expect(screen.getByText('loading ...')).toBeInTheDocument();
-  // });
+    const listNode = await waitFor(() => screen.getByText('another test'));
+    expect(listNode).toBeInTheDocument();
+  });
 
-  //   it('runs the mocked query & useQuery success with datas', async () => {
-  //     render(
-  //       <MockedProvider mocks={mocks} addTypename={false}>
-  //         <Resource />
-  //       </MockedProvider>
-  //     );
-
-  //     const listNode = await waitFor(() => screen.getByText('another test'));
-  //     expect(listNode).toBeInTheDocument();
-  //   });
+  it('test local storage', () => {
+    localStorage.setItem('item', 'test');
+    expect(localStorage.getItem('item')).toBe('test');
+    expect(localStorage.getItem.length).toBe(1);
+  });
 });
