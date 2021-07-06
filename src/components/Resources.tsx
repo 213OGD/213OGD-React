@@ -21,6 +21,7 @@ function Resources(): JSX.Element {
     GET_TAGS
   );
   const [authLoad, setAuthLoad] = useState(false);
+  const [updateTagList, setUpdateTagList] = useState<string[]>([]);
 
   const token = localStorage.getItem('token');
   const username = localStorage.getItem('username');
@@ -61,7 +62,7 @@ function Resources(): JSX.Element {
     selectedTags,
     tagSelection,
     isFileSelected,
-  ] = useTagSelection(data, loading, dataTags, loadingTags);
+  ] = useTagSelection(dataTags, loadingTags, updateTagList);
 
   // return (
   return !authLoad ? (
@@ -136,7 +137,7 @@ function Resources(): JSX.Element {
                   key={file._id}
                   // eslint-disable-next-line react/jsx-props-no-spreading
                   {...file}
-                  onReturnTags={(e: any) => console.log('hey', e)}
+                  onReturnTags={(newTagList) => setUpdateTagList(newTagList)}
                 />
               ) : null;
             })}
