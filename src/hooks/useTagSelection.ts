@@ -4,10 +4,9 @@ import { DatasProps } from '../components/CardFile';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const useTagSelection = (
-  data: any,
-  loading: boolean,
   dataTags: any,
-  loadingTags: boolean
+  loadingTags: boolean,
+  updateTagList: string[]
 ): any => {
   const [selectedTags, setSelectedTags] = useState<string[]>(['all']);
   const [displayTags, setDisplayTags] = useState<string[]>(['All']);
@@ -36,30 +35,29 @@ const useTagSelection = (
       }
     }
   }
-  useEffect(() => {
-    // Get tags from Mongo
-    const getTags = () => {
-      const getAllTags = dataTags;
-      if (!loadingTags && getAllTags) {
-        console.log('tags', getAllTags);
 
-        // getAllFiles.files.forEach(
-        //   (file: JSX.IntrinsicAttributes & DatasProps) => {
-        //     file.tags.forEach((tag: string) => {
-        //       if (
-        //         displayTags.findIndex(
-        //           (copy) => copy.toLowerCase() === tag.toLowerCase()
-        //         ) === -1
-        //       ) {
-        //         setDisplayTags([...displayTags, tag]);
-        //       }
-        //     });
-        //   }
-        // );
+  useEffect(() => {
+    function getTags() {
+      const tagList: string[] = ['All'];
+
+      console.log('uptl', updateTagList);
+      if (!loadingTags) {
+        console.log('data', dataTags);
+        // eslint-disable-next-line array-callback-return
+        dataTags.tags.map((tag: { name: string }) => {
+          tagList.push(tag.name);
+        });
+        setDisplayTags(tagList);
       }
-    };
-    // getTags(); // Get Tags and List them (front)
-  }, [dataTags, loadingTags]);
+      if (tagList !== updateTagList && updateTagList.length > 0) {
+        updateTagList.unshift('All');
+        setDisplayTags(updateTagList);
+      }
+    }
+    getTags();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataTags, loadingTags, updateTagList]);
+
   // Return True if file has tag checked
   function isFileSelected(
     fileTags: string[],

@@ -34,15 +34,13 @@ function CardFile(props: DatasProps): JSX.Element {
       } else {
         // eslint-disable-next-line no-lonely-if
         if (tag.length >= 2) {
-          const test = await addTagToBack({
+          const addTag = await addTagToBack({
             variables: { args: { idFile: id, tag } },
           });
-          console.log('test', test);
-          console.log('testTags', test.data.addTag.tags);
           const tagList: string[] = [];
           setArrayList([...arrayList, tag]);
 
-          test.data.addTag.tags.map((t: any) => {
+          addTag.data.addTag.tags.map((t: any) => {
             console.log(t.name);
             return tagList.push(t.name);
           });
@@ -56,11 +54,20 @@ function CardFile(props: DatasProps): JSX.Element {
     },
   };
 
-  const removeTagByIndex = (tag: string) => {
+  const removeTagByIndex = async (tag: string) => {
     const newArray = arrayList.filter((item) => item !== tag);
 
-    deleteTagToBack({ variables: { args: { idFile: _id, tag } } });
+    const removeTag = await deleteTagToBack({
+      variables: { args: { idFile: _id, tag } },
+    });
     setArrayList(newArray);
+    const tagList: string[] = [];
+
+    removeTag.data.deleteTag.tags.map((t: any) => {
+      return tagList.push(t.name);
+    });
+
+    onReturnTags(tagList);
   };
 
   const [show, setShow] = useState(false);
