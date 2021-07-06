@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FormEvent, useState } from 'react';
-import { useMutation } from '@apollo/client';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function AddTag(props: any): JSX.Element {

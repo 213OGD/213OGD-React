@@ -3,7 +3,12 @@ import { useState } from 'react';
 import { DatasProps } from '../components/CardFile';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const useTagSelection = (data: any, loading: boolean): any => {
+const useTagSelection = (
+  data: any,
+  loading: boolean,
+  dataTags: any,
+  loadingTags: boolean
+): any => {
   const [selectedTags, setSelectedTags] = useState<string[]>(['all']);
   const [displayTags, setDisplayTags] = useState<string[]>(['All']);
 
@@ -33,21 +38,23 @@ const useTagSelection = (data: any, loading: boolean): any => {
   }
   // Get tags from Mongo
   const getTags = () => {
-    const getAllFiles = data;
-    if (!loading && getAllFiles.files) {
-      getAllFiles.files.forEach(
-        (file: JSX.IntrinsicAttributes & DatasProps) => {
-          file.tags.forEach((tag: string) => {
-            if (
-              displayTags.findIndex(
-                (copy) => copy.toLowerCase() === tag.toLowerCase()
-              ) === -1
-            ) {
-              setDisplayTags([...displayTags, tag]);
-            }
-          });
-        }
-      );
+    const getAllTags = dataTags;
+    if (!loadingTags && getAllTags) {
+      console.log('tags', getAllTags);
+
+      // getAllFiles.files.forEach(
+      //   (file: JSX.IntrinsicAttributes & DatasProps) => {
+      //     file.tags.forEach((tag: string) => {
+      //       if (
+      //         displayTags.findIndex(
+      //           (copy) => copy.toLowerCase() === tag.toLowerCase()
+      //         ) === -1
+      //       ) {
+      //         setDisplayTags([...displayTags, tag]);
+      //       }
+      //     });
+      //   }
+      // );
     }
   };
   getTags(); // Get Tags and List them (front)

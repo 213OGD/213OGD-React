@@ -13,7 +13,7 @@ export type DatasProps = {
   webViewLink: string;
   iconLink: string;
   tags: string[];
-  onSuccess: (tag: string, id: string) => void;
+  onReturnTags: (tags: string[]) => void;
 };
 
 function CardFile(props: DatasProps): JSX.Element {
@@ -28,14 +28,21 @@ function CardFile(props: DatasProps): JSX.Element {
   const [deleteTagToBack] = useMutation(DELETE_TAG);
 
   const data = {
-    addTag: (tag: string, id: number) => {
+    addTag: async (tag: string, id: number) => {
       if (arrayList.find((item) => item.toLowerCase() === tag.toLowerCase())) {
         setWarning('Ce tag existe déjà');
       } else {
         // eslint-disable-next-line no-lonely-if
         if (tag.length >= 2) {
-          addTagToBack({ variables: { args: { idFile: id, tag } } });
-          setArrayList([...arrayList, tag]);
+          const test = await addTagToBack({
+            variables: { args: { idFile: id, tag } },
+          });
+          console.log('test', test);
+          console.log('testTags', test.data.addTag.tags);
+          const tagList: string[] = [];
+          test.data.addTag.tags.map((t: any) => tagList.push(t.name));
+          setArrayList(tagList, tag );
+          console.log(arrayList);
           setWarning('');
         } else {
           setWarning('Votre tag doit contenir 2 caractères minimum');

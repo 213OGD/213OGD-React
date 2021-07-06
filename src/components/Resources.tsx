@@ -36,7 +36,9 @@ function Resources(): JSX.Element {
           const auth = await reqAuth({ variables: { token } });
           // console.log(auth);
           // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-          auth.data.getAuthPayload ? setAuthLoad(true) : history.push('/');
+          auth.data.getAuthPayload.loggedIn
+            ? setAuthLoad(true)
+            : history.push('/');
         } catch (err) {
           console.log('err', err.message);
           setAuthLoad(false);
@@ -59,7 +61,7 @@ function Resources(): JSX.Element {
     selectedTags,
     tagSelection,
     isFileSelected,
-  ] = useTagSelection(data, loading);
+  ] = useTagSelection(data, loading, dataTags, loadingTags);
 
   // return (
   return !authLoad ? (
@@ -87,7 +89,7 @@ function Resources(): JSX.Element {
       </header>
       <div className="p-6">
         {loading && <h2>loading !!!</h2>}
-        {error && <h2>error</h2>}
+        {error && <h2>error </h2>}
         {displayTags && displayTags.length > 0 && (
           <div className="flex flex-row flex-wrap items-center">
             <h3 className="pl-4 pr-4 ">Tags :</h3>
@@ -134,6 +136,7 @@ function Resources(): JSX.Element {
                   key={file._id}
                   // eslint-disable-next-line react/jsx-props-no-spreading
                   {...file}
+                  onReturnTags={(e: any) => console.log('hey', e)}
                 />
               ) : null;
             })}
