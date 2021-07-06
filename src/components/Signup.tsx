@@ -28,7 +28,7 @@ export default function Signup(): JSX.Element {
       try {
         const res = await signup({ variables: { username, mail, password } });
 
-        localStorage.setItem('token', res.data.addUser.token);
+        localStorage.setItem('odyssey213Token', res.data.addUser.token);
         localStorage.setItem('username', res.data.addUser.user.username);
         localStorage.setItem('id', res.data.addUser.user._id);
         history.push('/home');

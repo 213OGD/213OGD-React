@@ -23,7 +23,7 @@ function Resources(): JSX.Element {
   const [authLoad, setAuthLoad] = useState(false);
   const [updateTagList, setUpdateTagList] = useState<string[]>([]);
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('odyssey213Token');
   const username = localStorage.getItem('username');
   const [reqAuth] = useMutation(IS_AUTH);
 
@@ -53,7 +53,9 @@ function Resources(): JSX.Element {
 
   // console.log(process.env.REACT_APP_URI, 'FILES', data);
   function disconnect() {
-    localStorage.clear();
+    localStorage.removeItem('odyssey213Token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('id');
     history.push('/');
   }
 
