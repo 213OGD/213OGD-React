@@ -4,7 +4,7 @@ import { DatasProps } from '../components/CardFile';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const useTagSelection = (data: any, loading: boolean): any => {
-  const [selectedTags, setSelectedTags] = useState<string[]>(['react']);
+  const [selectedTags, setSelectedTags] = useState<string[]>(['all']);
   const [displayTags, setDisplayTags] = useState<string[]>(['All']);
 
   // Selecting tags in Front

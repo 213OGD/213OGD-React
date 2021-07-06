@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import AddTag from './AddTag';
-import DELETE_TAG from '../queries/deleteTag.queries';
+import { DELETE_TAG, ADD_TAG } from '../queries/tags.queries';
 
 export type DatasProps = {
   _id: string;
@@ -13,6 +13,7 @@ export type DatasProps = {
   webViewLink: string;
   iconLink: string;
   tags: string[];
+  onSuccess: (tag: string, id: string) => void;
 };
 
 function CardFile(props: DatasProps): JSX.Element {
@@ -22,20 +23,19 @@ function CardFile(props: DatasProps): JSX.Element {
   const [arrayList, setArrayList] = useState<string[]>(tags);
   const [warning, setWarning] = useState('');
 
-  const [
-    deleteTagToBack,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    { loading: mutationLoading, error: mutationError },
-  ] = useMutation(DELETE_TAG);
+  const [addTagToBack] = useMutation(ADD_TAG);
+
+  const [deleteTagToBack] = useMutation(DELETE_TAG);
 
   const data = {
-    addTag: (res: string) => {
-      if (arrayList.find((item) => item.toLowerCase() === res.toLowerCase())) {
+    addTag: (tag: string, id: number) => {
+      if (arrayList.find((item) => item.toLowerCase() === tag.toLowerCase())) {
         setWarning('Ce tag existe déjà');
       } else {
         // eslint-disable-next-line no-lonely-if
-        if (res.length >= 2) {
-          setArrayList([...arrayList, res]);
+        if (tag.length >= 2) {
+          addTagToBack({ variables: { args: { idFile: id, tag } } });
+          setArrayList([...arrayList, tag]);
           setWarning('');
         } else {
           setWarning('Votre tag doit contenir 2 caractères minimum');
@@ -48,14 +48,13 @@ function CardFile(props: DatasProps): JSX.Element {
     const newArray = arrayList.filter((item) => item !== tag);
 
     deleteTagToBack({ variables: { args: { idFile: _id, tag } } });
-
     setArrayList(newArray);
   };
 
   const [show, setShow] = useState(false);
 
   return (
-    <div className="w-60 rounded-2xl shadow-lg my-6 mr-4 p-3">
+    <div className="w-60  border border-gray-200  rounded-2xl shadow-lg my-6 mr-4 p-3">
       <figure>
         <a href={webViewLink}>
           <img
