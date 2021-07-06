@@ -18,7 +18,7 @@ export type DatasProps = {
 
 function CardFile(props: DatasProps): JSX.Element {
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { name, webViewLink, iconLink, tags, _id } = props;
+  const { name, webViewLink, iconLink, tags, _id, onReturnTags } = props;
 
   const [arrayList, setArrayList] = useState<string[]>(tags);
   const [warning, setWarning] = useState('');
@@ -40,9 +40,14 @@ function CardFile(props: DatasProps): JSX.Element {
           console.log('test', test);
           console.log('testTags', test.data.addTag.tags);
           const tagList: string[] = [];
-          test.data.addTag.tags.map((t: any) => tagList.push(t.name));
-          setArrayList(tagList, tag );
-          console.log(arrayList);
+          setArrayList([...arrayList, tag]);
+
+          test.data.addTag.tags.map((t: any) => {
+            console.log(t.name);
+            return tagList.push(t.name);
+          });
+
+          onReturnTags(tagList);
           setWarning('');
         } else {
           setWarning('Votre tag doit contenir 2 caractères minimum');

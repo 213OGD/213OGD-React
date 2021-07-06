@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DatasProps } from '../components/CardFile';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -36,29 +36,30 @@ const useTagSelection = (
       }
     }
   }
-  // Get tags from Mongo
-  const getTags = () => {
-    const getAllTags = dataTags;
-    if (!loadingTags && getAllTags) {
-      console.log('tags', getAllTags);
+  useEffect(() => {
+    // Get tags from Mongo
+    const getTags = () => {
+      const getAllTags = dataTags;
+      if (!loadingTags && getAllTags) {
+        console.log('tags', getAllTags);
 
-      // getAllFiles.files.forEach(
-      //   (file: JSX.IntrinsicAttributes & DatasProps) => {
-      //     file.tags.forEach((tag: string) => {
-      //       if (
-      //         displayTags.findIndex(
-      //           (copy) => copy.toLowerCase() === tag.toLowerCase()
-      //         ) === -1
-      //       ) {
-      //         setDisplayTags([...displayTags, tag]);
-      //       }
-      //     });
-      //   }
-      // );
-    }
-  };
-  getTags(); // Get Tags and List them (front)
-
+        // getAllFiles.files.forEach(
+        //   (file: JSX.IntrinsicAttributes & DatasProps) => {
+        //     file.tags.forEach((tag: string) => {
+        //       if (
+        //         displayTags.findIndex(
+        //           (copy) => copy.toLowerCase() === tag.toLowerCase()
+        //         ) === -1
+        //       ) {
+        //         setDisplayTags([...displayTags, tag]);
+        //       }
+        //     });
+        //   }
+        // );
+      }
+    };
+    // getTags(); // Get Tags and List them (front)
+  }, [dataTags, loadingTags]);
   // Return True if file has tag checked
   function isFileSelected(
     fileTags: string[],
