@@ -12,3 +12,4 @@ services:
       - ./src:/app/src
     command: npm start
     stdin_open: true
+    tty: true

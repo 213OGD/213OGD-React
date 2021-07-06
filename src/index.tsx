@@ -9,7 +9,7 @@ const client = new ApolloClient({
   uri: process.env.REACT_APP_URI,
   cache: new InMemoryCache(),
   headers: {
-    authorization: localStorage.getItem('token') || '',
+    authorization: localStorage.getItem('odyssey213Token') || '',
   },
 });
 console.log(process.env.REACT_APP_URI);

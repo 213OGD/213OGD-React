@@ -24,7 +24,7 @@ function Login(): JSX.Element {
     } else {
       setFlashMessage('');
 
-      localStorage.setItem('token', res.data.login.token);
+      localStorage.setItem('odyssey213Token', res.data.login.token);
       localStorage.setItem('username', res.data.login.user.username);
       // eslint-disable-next-line no-underscore-dangle
       localStorage.setItem('id', res.data.login.user._id);
