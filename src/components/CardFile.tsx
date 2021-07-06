@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import AddTag from './AddTag';
-import DELETE_TAG from '../queries/deleteTag.queries';
+import { DELETE_TAG, ADD_TAG } from '../queries/tags.queries';
 
 export type DatasProps = {
   _id: string;
@@ -13,29 +13,39 @@ export type DatasProps = {
   webViewLink: string;
   iconLink: string;
   tags: string[];
+  onReturnTags: (tags: string[]) => void;
 };
 
 function CardFile(props: DatasProps): JSX.Element {
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { name, webViewLink, iconLink, tags, _id } = props;
+  const { name, webViewLink, iconLink, tags, _id, onReturnTags } = props;
 
   const [arrayList, setArrayList] = useState<string[]>(tags);
   const [warning, setWarning] = useState('');
 
-  const [
-    deleteTagToBack,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    { loading: mutationLoading, error: mutationError },
-  ] = useMutation(DELETE_TAG);
+  const [addTagToBack] = useMutation(ADD_TAG);
+
+  const [deleteTagToBack] = useMutation(DELETE_TAG);
 
   const data = {
-    addTag: (res: string) => {
-      if (arrayList.find((item) => item.toLowerCase() === res.toLowerCase())) {
+    addTag: async (tag: string, id: number) => {
+      if (arrayList.find((item) => item.toLowerCase() === tag.toLowerCase())) {
         setWarning('Ce tag existe déjà');
       } else {
         // eslint-disable-next-line no-lonely-if
-        if (res.length >= 2) {
-          setArrayList([...arrayList, res]);
+        if (tag.length >= 2) {
+          const addTag = await addTagToBack({
+            variables: { args: { idFile: id, tag } },
+          });
+          const tagList: string[] = [];
+          setArrayList([...arrayList, tag]);
+
+          addTag.data.addTag.tags.map((t: any) => {
+            console.log(t.name);
+            return tagList.push(t.name);
+          });
+
+          onReturnTags(tagList);
           setWarning('');
         } else {
           setWarning('Votre tag doit contenir 2 caractères minimum');
@@ -44,18 +54,26 @@ function CardFile(props: DatasProps): JSX.Element {
     },
   };
 
-  const removeTagByIndex = (tag: string) => {
+  const removeTagByIndex = async (tag: string) => {
     const newArray = arrayList.filter((item) => item !== tag);
 
-    deleteTagToBack({ variables: { args: { idFile: _id, tag } } });
-
+    const removeTag = await deleteTagToBack({
+      variables: { args: { idFile: _id, tag } },
+    });
     setArrayList(newArray);
+    const tagList: string[] = [];
+
+    removeTag.data.deleteTag.tags.map((t: any) => {
+      return tagList.push(t.name);
+    });
+
+    onReturnTags(tagList);
   };
 
   const [show, setShow] = useState(false);
 
   return (
-    <div className="w-60 rounded-2xl shadow-lg my-6 mr-4 p-3">
+    <div className="w-60  border border-gray-200  rounded-2xl shadow-lg my-6 mr-4 p-3">
       <figure>
         <a href={webViewLink}>
           <img

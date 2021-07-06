@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DatasProps } from '../components/CardFile';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const useTagSelection = (data: any, loading: boolean): any => {
-  const [selectedTags, setSelectedTags] = useState<string[]>(['react']);
+const useTagSelection = (
+  dataTags: any,
+  loadingTags: boolean,
+  updateTagList: string[]
+): any => {
+  const [selectedTags, setSelectedTags] = useState<string[]>(['all']);
   const [displayTags, setDisplayTags] = useState<string[]>(['All']);
 
   // Selecting tags in Front
@@ -31,26 +35,28 @@ const useTagSelection = (data: any, loading: boolean): any => {
       }
     }
   }
-  // Get tags from Mongo
-  const getTags = () => {
-    const getAllFiles = data;
-    if (!loading && getAllFiles.files) {
-      getAllFiles.files.forEach(
-        (file: JSX.IntrinsicAttributes & DatasProps) => {
-          file.tags.forEach((tag: string) => {
-            if (
-              displayTags.findIndex(
-                (copy) => copy.toLowerCase() === tag.toLowerCase()
-              ) === -1
-            ) {
-              setDisplayTags([...displayTags, tag]);
-            }
-          });
-        }
-      );
+
+  useEffect(() => {
+    function getTags() {
+      const tagList: string[] = ['All'];
+
+      console.log('uptl', updateTagList);
+      if (!loadingTags) {
+        console.log('data', dataTags);
+        // eslint-disable-next-line array-callback-return
+        dataTags.tags.map((tag: { name: string }) => {
+          tagList.push(tag.name);
+        });
+        setDisplayTags(tagList);
+      }
+      if (tagList !== updateTagList && updateTagList.length > 0) {
+        updateTagList.unshift('All');
+        setDisplayTags(updateTagList);
+      }
     }
-  };
-  getTags(); // Get Tags and List them (front)
+    getTags();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataTags, loadingTags, updateTagList]);
 
   // Return True if file has tag checked
   function isFileSelected(

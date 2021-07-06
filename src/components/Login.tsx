@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { FormEvent, useState } from 'react';
 import { FetchResult, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
@@ -46,19 +47,15 @@ function Login(): JSX.Element {
         setFlashMessage('Veuillez saisir un mot de passe');
     } else {
       setFlashMessage('');
-      // console.log(mail, password);
       try {
         const res = await logs({ variables: { mail, password } });
         handleSuccess(res);
       } catch (error) {
-        // console.log('error', error.message);
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         error.message === 'Wrong Password!'
           ? setFlashMessage('Mauvais mot de passe')
           : setFlashMessage(error.message);
       }
     }
-
     setMail('');
     setPassword('');
   }

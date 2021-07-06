@@ -5,7 +5,7 @@ import SideBar from './SideBar';
 describe('Sidebar', () => {
   it('renders sidebar & all link are displayed', () => {
     render(<SideBar />);
-    expect(screen.getAllByRole('link')).toHaveLength(6);
+    expect(screen.getAllByRole('link')).toHaveLength(7);
   });
   it('renders sidebar & have the link with "Ressource" text with href value #', () => {
     render(<SideBar />);
