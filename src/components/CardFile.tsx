@@ -41,7 +41,6 @@ function CardFile(props: DatasProps): JSX.Element {
           setArrayList([...arrayList, tag]);
 
           addTag.data.addTag.tags.map((t: any) => {
-            console.log(t.name);
             return tagList.push(t.name);
           });
 

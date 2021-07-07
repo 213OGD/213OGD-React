@@ -35,13 +35,11 @@ function Resources(): JSX.Element {
       if (token) {
         try {
           const auth = await reqAuth({ variables: { token } });
-          // console.log(auth);
           // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           auth.data.getAuthPayload.loggedIn
             ? setAuthLoad(true)
             : history.push('/');
         } catch (err) {
-          console.log('err', err.message);
           setAuthLoad(false);
           history.push('/');
         }
@@ -51,7 +49,6 @@ function Resources(): JSX.Element {
     checkAuth();
   }, []);
 
-  // console.log(process.env.REACT_APP_URI, 'FILES', data);
   function disconnect() {
     localStorage.removeItem('odyssey213Token');
     localStorage.removeItem('username');

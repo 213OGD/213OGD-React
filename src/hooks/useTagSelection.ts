@@ -40,9 +40,7 @@ const useTagSelection = (
     function getTags() {
       const tagList: string[] = ['All'];
 
-      console.log('uptl', updateTagList);
       if (!loadingTags) {
-        console.log('data', dataTags);
         // eslint-disable-next-line array-callback-return
         dataTags.tags.map((tag: { name: string }) => {
           tagList.push(tag.name);

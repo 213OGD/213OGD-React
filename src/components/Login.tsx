@@ -19,7 +19,6 @@ function Login(): JSX.Element {
   async function handleSuccess(
     res: FetchResult<any, Record<string, any>, Record<string, any>>
   ) {
-    console.log('res', res);
     if (res.data.login === null) {
       setFlashMessage("L'utilisateur n'existe pas.");
     } else {

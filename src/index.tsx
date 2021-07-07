@@ -12,7 +12,6 @@ const client = new ApolloClient({
     authorization: localStorage.getItem('odyssey213Token') || '',
   },
 });
-console.log(process.env.REACT_APP_URI);
 
 ReactDOM.render(
   <React.StrictMode>
