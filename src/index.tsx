@@ -8,6 +8,9 @@ import reportWebVitals from './reportWebVitals';
 const client = new ApolloClient({
   uri: process.env.REACT_APP_URI,
   cache: new InMemoryCache(),
+  headers: {
+    authorization: localStorage.getItem('odyssey213Token') || '',
+  },
 });
 console.log(process.env.REACT_APP_URI);
 

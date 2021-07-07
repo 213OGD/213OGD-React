@@ -16,6 +16,22 @@ export default POST_LOG;
 
 export const IS_AUTH = gql`
   mutation getPayload($token: String!) {
-    getAuthPayload(token: $token)
+    getAuthPayload(token: $token) {
+      loggedIn
+      role
+    }
+  }
+`;
+
+export const SIGNUP = gql`
+  mutation signup($username: String!, $mail: String!, $password: String!) {
+    addUser(username: $username, mail: $mail, password: $password) {
+      user {
+        _id
+        username
+        mail
+      }
+      token
+    }
   }
 `;

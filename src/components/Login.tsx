@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { FormEvent, useState } from 'react';
 import { FetchResult, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
@@ -24,7 +25,7 @@ function Login(): JSX.Element {
     } else {
       setFlashMessage('');
 
-      localStorage.setItem('token', res.data.login.token);
+      localStorage.setItem('odyssey213Token', res.data.login.token);
       localStorage.setItem('username', res.data.login.user.username);
       // eslint-disable-next-line no-underscore-dangle
       localStorage.setItem('id', res.data.login.user._id);
@@ -46,19 +47,15 @@ function Login(): JSX.Element {
         setFlashMessage('Veuillez saisir un mot de passe');
     } else {
       setFlashMessage('');
-      // console.log(mail, password);
       try {
         const res = await logs({ variables: { mail, password } });
         handleSuccess(res);
       } catch (error) {
-        // console.log('error', error.message);
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         error.message === 'Wrong Password!'
           ? setFlashMessage('Mauvais mot de passe')
           : setFlashMessage(error.message);
       }
     }
-
     setMail('');
     setPassword('');
   }
@@ -125,6 +122,13 @@ function Login(): JSX.Element {
               </svg>
             </span>
             Sign in
+          </button>
+          <button
+            className="group relative w-full transition duration-500 ease-in-out flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-red-400 hover:text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-200 transition-shadow"
+            type="submit"
+            onClick={() => history.push('/signup')}
+          >
+            Sign up
           </button>
         </form>
       </div>

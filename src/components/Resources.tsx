@@ -11,12 +11,20 @@ import '../App.css';
 import SideBar from './SideBar';
 import { IS_AUTH } from '../queries/users.queries';
 
+import logo from '../images/Drive-Logo.png';
+import GET_TAGS from '../queries/tags.queries';
+
 function Resources(): JSX.Element {
   const history = useHistory();
   const { loading, error, data } = useQuery(GET_FILES);
+  const { loading: loadingTags, error: errorTags, data: dataTags } = useQuery(
+    GET_TAGS
+  );
   const [authLoad, setAuthLoad] = useState(false);
+  const [updateTagList, setUpdateTagList] = useState<string[]>([]);
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('odyssey213Token');
+  const username = localStorage.getItem('username');
   const [reqAuth] = useMutation(IS_AUTH);
 
   useEffect(() => {
@@ -27,8 +35,11 @@ function Resources(): JSX.Element {
       if (token) {
         try {
           const auth = await reqAuth({ variables: { token } });
+          // console.log(auth);
           // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-          auth.data.getAuthPayload ? setAuthLoad(true) : history.push('/');
+          auth.data.getAuthPayload.loggedIn
+            ? setAuthLoad(true)
+            : history.push('/');
         } catch (err) {
           console.log('err', err.message);
           setAuthLoad(false);
@@ -42,7 +53,9 @@ function Resources(): JSX.Element {
 
   // console.log(process.env.REACT_APP_URI, 'FILES', data);
   function disconnect() {
-    localStorage.clear();
+    localStorage.removeItem('odyssey213Token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('id');
     history.push('/');
   }
 
@@ -51,39 +64,53 @@ function Resources(): JSX.Element {
     selectedTags,
     tagSelection,
     isFileSelected,
-  ] = useTagSelection(data, loading);
+  ] = useTagSelection(dataTags, loadingTags, updateTagList);
 
   // return (
   return !authLoad ? (
     <>
-      <h1>loading !!!</h1>
+      <h1>loading ...</h1>
     </>
   ) : (
-    <div className="container">
-      <header className="w-full bg-wild rounded-lg">
-        <h1>213 Odyssey Google Drive</h1>
-        <button type="button" onClick={disconnect}>
-          LogOut
-        </button>
+    <div className="mx-auto">
+      <header className="flex items-center justify-between mx-auto bg-wild bg-cover h-32 shadow-lg">
+        <div className="flex flex-col items-center pl-6">
+          <img className="h-12 xl:h-14" src={logo} alt="logo OGD 213" />
+          <h1 className="font-mono text-white">Odyssey Google Drive</h1>
+          <h2 className="text-gray-700 font-semibold">213</h2>
+        </div>
+        <div className="text-white font-semibold">
+          {username && `Hello ${username}`}
+          <button
+            className="text-white hover:text-red-400 hover:bg-gray-100 text-sm text-center rounded-md px-2 py-2 m-2 transition duration-500 ease select-none focus:outline-none focus:shadow-outline font-semibold"
+            type="button"
+            onClick={disconnect}
+          >
+            LogOut
+          </button>
+        </div>
       </header>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'space-evenly',
-          alignItems: 'stretch',
-        }}
-        className="container-cards rounded-xl p-8"
-      >
-        {loading && <h2>loading ...</h2>}
-        {error && <h2>error</h2>}
+      <div className="p-6">
+        {loading && <h2>loading !!!</h2>}
+        {error && <h2>error </h2>}
         {displayTags && displayTags.length > 0 && (
-          <div className="" style={{ width: '100vw' }}>
-            <h3 className="">Tags</h3>
+          <div className="flex flex-row flex-wrap items-center">
+            <h3 className="pl-4 pr-4 ">Tags :</h3>
             {displayTags.map((tag: string) => (
-              <div key={tag}>
+              <div
+                key={tag}
+                className={`transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110  m-2 p-2 xl:my-6 rounded-md border-2 border-transparent border-red-400 font-semibold
+                ${
+                  selectedTags.findIndex(
+                    (tagName: string) =>
+                      tagName.toLowerCase() === tag.toLowerCase()
+                  ) !== -1
+                    ? 'bg-red-400 text-white'
+                    : 'bg-white text-red-400'
+                }`}
+              >
                 <input
+                  className="hidden"
                   type="checkbox"
                   name={tag.toLowerCase()}
                   value={tag.toLowerCase()}
@@ -96,29 +123,28 @@ function Resources(): JSX.Element {
                     ) !== -1
                   }
                 />
-                <label
-                  htmlFor={tag}
-                  style={{
-                    margin: 4,
-                    padding: 4,
-                  }}
-                >
+                <label htmlFor={tag} className="p-2 px-3">
                   {tag}
                 </label>
               </div>
             ))}
           </div>
         )}
-        {data &&
-          data.files.map((file: JSX.IntrinsicAttributes & DatasProps) => {
-            // eslint-disable-next-line react/jsx-props-no-spreading, no-underscore-dangle
-            return isFileSelected(file.tags, selectedTags) === true ? (
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              <CardFile key={file._id} {...file} />
-            ) : null;
-          })}
+        <div className="flex flex-row flex-wrap">
+          {data &&
+            data.files.map((file: JSX.IntrinsicAttributes & DatasProps) => {
+              // eslint-disable-next-line react/jsx-props-no-spreading, no-underscore-dangle
+              return isFileSelected(file.tags, selectedTags) === true ? (
+                <CardFile
+                  key={file._id}
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...file}
+                  onReturnTags={(newTagList) => setUpdateTagList(newTagList)}
+                />
+              ) : null;
+            })}
+        </div>
       </div>
-      <SideBar />
     </div>
   );
 }

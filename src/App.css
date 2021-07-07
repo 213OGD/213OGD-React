@@ -1,6 +1,7 @@
 /* * {
   box-sizing: border-box;
 } */
+
 /* body {
   margin: 0;
 }
@@ -58,29 +59,29 @@ header h1 {
 
 .sidebar .active {
   color: red;
-} */
-
-/* .login-page{
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
 }
 
-.login-page div{
-    background: center / cover no-repeat url('./bg-wild.jpeg');
-    padding: 2em;
-    border-radius: 7px;
-    text-align: center;
-    color:white;
-    width: 500px;
+.login-page {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
-.login-page div form input{
-    padding: 0.5em;
-    border-radius: 7px;
-    color: black;
+.login-page div {
+  background: center / cover no-repeat url('./bg-wild.jpeg');
+  padding: 2em;
+  border-radius: 7px;
+  text-align: center;
+  color: white;
+  width: 500px;
 }
-.login-page div form input:focus{
-    border-radius: 7px;
+
+.login-page div form input {
+  padding: 0.5em;
+  border-radius: 7px;
+  color: black;
+}
+.login-page div form input:focus {
+  border-radius: 7px;
 } */
