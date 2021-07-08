@@ -13,4 +13,16 @@ const GET_FILES = gql`
   }
 `;
 
-export default GET_FILES;
+const CREATE_OR_UPDATE = gql`
+  mutation createOrUpdate {
+    createOrUpdate {
+      _id
+      name
+      webViewLink
+      iconLink
+      tags
+    }
+  }
+`;
+
+export { GET_FILES, CREATE_OR_UPDATE };

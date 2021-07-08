@@ -41,6 +41,7 @@ function CardFile(props: DatasProps): JSX.Element {
           setArrayList([...arrayList, tag]);
 
           addTag.data.addTag.tags.map((t: any) => {
+            console.log(t.name);
             return tagList.push(t.name);
           });
 
@@ -72,8 +73,8 @@ function CardFile(props: DatasProps): JSX.Element {
   const [show, setShow] = useState(false);
 
   return (
-    <div className="w-60  border border-gray-200  rounded-2xl shadow-lg my-6 mr-4 p-3">
-      <figure>
+    <div className="w-full lg:w-60 border border-gray-200 rounded-2xl shadow-lg my-6 p-3">
+      <figure className="min-h-72">
         <a href={webViewLink}>
           <img
             className="h-16 p-2"
@@ -84,7 +85,9 @@ function CardFile(props: DatasProps): JSX.Element {
             }
             alt={name}
           />
-          <figcaption className="pl-2 py-3">{name}</figcaption>
+          <figcaption className="pl-2 py-3 text-gray-600 break-all">
+            {name}
+          </figcaption>
         </a>
       </figure>
       <AddTag {...data} id={_id} />

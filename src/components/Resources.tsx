@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
@@ -5,7 +6,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import useTagSelection from '../hooks/useTagSelection';
-import GET_FILES from '../queries/files.queries';
+import { GET_FILES, CREATE_OR_UPDATE } from '../queries/files.queries';
 import CardFile, { DatasProps } from './CardFile';
 import '../App.css';
 import SideBar from './SideBar';
@@ -21,11 +22,15 @@ function Resources(): JSX.Element {
     GET_TAGS
   );
   const [authLoad, setAuthLoad] = useState(false);
+  const [role, setRole] = useState('');
   const [updateTagList, setUpdateTagList] = useState<string[]>([]);
 
   const token = localStorage.getItem('odyssey213Token');
   const username = localStorage.getItem('username');
   const [reqAuth] = useMutation(IS_AUTH);
+  const [gDrive] = useMutation(CREATE_OR_UPDATE, {
+    refetchQueries: () => [{ query: GET_FILES }],
+  });
 
   useEffect(() => {
     async function checkAuth() {
@@ -36,9 +41,12 @@ function Resources(): JSX.Element {
         try {
           const auth = await reqAuth({ variables: { token } });
           // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-          auth.data.getAuthPayload.loggedIn
-            ? setAuthLoad(true)
-            : history.push('/');
+          if (auth.data.getAuthPayload.loggedIn) {
+            setRole(auth.data.getAuthPayload.role);
+            setAuthLoad(true);
+          } else {
+            history.push('/');
+          }
         } catch (err) {
           setAuthLoad(false);
           history.push('/');
@@ -56,6 +64,11 @@ function Resources(): JSX.Element {
     history.push('/');
   }
 
+  async function getData(): Promise<any> {
+    const driveData = await gDrive();
+    return driveData;
+  }
+
   const [
     displayTags,
     selectedTags,
@@ -66,7 +79,13 @@ function Resources(): JSX.Element {
   // return (
   return !authLoad ? (
     <>
-      <h1>loading ...</h1>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <img
+          className="mx-auto h-20 w-auto animate-ping"
+          src="https://avatars.githubusercontent.com/u/8874047?s=280&v=4"
+          alt="Workflow"
+        />
+      </div>
     </>
   ) : (
     <div className="mx-auto">
@@ -87,12 +106,35 @@ function Resources(): JSX.Element {
           </button>
         </div>
       </header>
-      <div className="p-6">
+      <div className="mx-auto">
         {loading && <h2>loading !!!</h2>}
         {error && <h2>error </h2>}
         {displayTags && displayTags.length > 0 && (
-          <div className="flex flex-row flex-wrap items-center">
-            <h3 className="pl-4 pr-4 ">Tags :</h3>
+          <div className="flex flex-row flex-wrap items-center pl-5 2xl:pl-6">
+            {role === 'teacher' ? (
+              <button
+                type="button"
+                className="rounded-full nm-convex-gray-300 active:nm-inset-gray-300 px-1 py-0.5 mr-3"
+                onClick={getData}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="icon icon-tabler icon-tabler-refresh px-1 py-1 active:animate-spin-r"
+                  width="44"
+                  height="44"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="#f87171"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+                  <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+                </svg>
+              </button>
+            ) : null}
             {displayTags.map((tag: string) => (
               <div
                 key={tag}
@@ -127,19 +169,19 @@ function Resources(): JSX.Element {
             ))}
           </div>
         )}
-        <div className="flex flex-row flex-wrap">
-          {data &&
-            data.files.map((file: JSX.IntrinsicAttributes & DatasProps) => {
-              // eslint-disable-next-line react/jsx-props-no-spreading, no-underscore-dangle
-              return isFileSelected(file.tags, selectedTags) === true ? (
-                <CardFile
-                  key={file._id}
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...file}
-                  onReturnTags={(newTagList) => setUpdateTagList(newTagList)}
-                />
-              ) : null;
-            })}
+        <div className="mx-auto container py-12 px-2">
+          <div className="grid place-content-between sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grids-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7 4xl:grid-cols-8 5xl:grid-cols-10 gap-4 2xl:gap-3 justify-between">
+            {data &&
+              data.files.map((file: JSX.IntrinsicAttributes & DatasProps) => {
+                return isFileSelected(file.tags, selectedTags) === true ? (
+                  <CardFile
+                    key={file._id}
+                    {...file}
+                    onReturnTags={(newTagList) => setUpdateTagList(newTagList)}
+                  />
+                ) : null;
+              })}
+          </div>
         </div>
       </div>
     </div>
