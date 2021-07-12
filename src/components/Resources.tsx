@@ -40,7 +40,6 @@ function Resources(): JSX.Element {
       if (token) {
         try {
           const auth = await reqAuth({ variables: { token } });
-          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           if (auth.data.getAuthPayload.loggedIn) {
             setRole(auth.data.getAuthPayload.role);
             setAuthLoad(true);
@@ -52,7 +51,6 @@ function Resources(): JSX.Element {
           history.push('/');
         }
       }
-      // setAuthLoad(false);
     }
     checkAuth();
   }, []);
@@ -111,7 +109,7 @@ function Resources(): JSX.Element {
         {error && <h2>error </h2>}
         {displayTags && displayTags.length > 0 && (
           <div className="flex flex-row flex-wrap items-center pl-5 2xl:pl-6">
-            {role === 'teacher' ? (
+            {role === 'teacher' && (
               <button
                 type="button"
                 className="rounded-full nm-convex-gray-300 active:nm-inset-gray-300 px-1 py-0.5 mr-3"
@@ -134,7 +132,7 @@ function Resources(): JSX.Element {
                   <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
                 </svg>
               </button>
-            ) : null}
+            )}
             {displayTags.map((tag: string) => (
               <div
                 key={tag}
@@ -175,6 +173,7 @@ function Resources(): JSX.Element {
               data.files.map((file: JSX.IntrinsicAttributes & DatasProps) => {
                 return isFileSelected(file.tags, selectedTags) === true ? (
                   <CardFile
+                    role={role}
                     key={file._id}
                     {...file}
                     onReturnTags={(newTagList) => setUpdateTagList(newTagList)}
