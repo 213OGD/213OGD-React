@@ -25,7 +25,7 @@ export const IS_AUTH = gql`
 
 export const SIGNUP = gql`
   mutation signup($username: String!, $mail: String!, $password: String!) {
-    addUser(username: $username, mail: $mail, password: $password) {
+    addUser(user: { username: $username, mail: $mail, password: $password }) {
       user {
         _id
         username
