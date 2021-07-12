@@ -13,12 +13,13 @@ export type DatasProps = {
   webViewLink: string;
   iconLink: string;
   tags: string[];
+  role: string;
   onReturnTags: (tags: string[]) => void;
 };
 
 function CardFile(props: DatasProps): JSX.Element {
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { name, webViewLink, iconLink, tags, _id, onReturnTags } = props;
+  const { name, webViewLink, iconLink, tags, _id, role, onReturnTags } = props;
 
   const [arrayList, setArrayList] = useState<string[]>(tags);
   const [warning, setWarning] = useState('');
@@ -90,7 +91,7 @@ function CardFile(props: DatasProps): JSX.Element {
           </figcaption>
         </a>
       </figure>
-      <AddTag {...data} id={_id} />
+      {role === 'teacher' && <AddTag {...data} id={_id} />}
       {arrayList && arrayList.length > 0 && (
         <div className="relative">
           <div
@@ -144,13 +145,15 @@ function CardFile(props: DatasProps): JSX.Element {
                   key={el}
                 >
                   {el}{' '}
-                  <button
-                    className="bg-red-400 ml-1 p-1 rounded-full text-white hover:bg-white hover:text-red-400"
-                    type="submit"
-                    onClick={() => removeTagByIndex(el)}
-                  >
-                    X
-                  </button>
+                  {role === 'teacher' && (
+                    <button
+                      className="bg-red-400 ml-1 p-1 rounded-full text-white hover:bg-white hover:text-red-400"
+                      type="submit"
+                      onClick={() => removeTagByIndex(el)}
+                    >
+                      X
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
