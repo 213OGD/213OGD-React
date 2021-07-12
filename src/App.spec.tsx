@@ -2,7 +2,7 @@ import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { render, screen, waitFor } from '@testing-library/react';
 import Resource from './components/Resources';
-import GET_FILES from './queries/files.queries';
+import { GET_FILES } from './queries/files.queries';
 import { IS_AUTH } from './queries/users.queries';
 
 const mocks = [

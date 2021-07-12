@@ -4,7 +4,8 @@ import { FetchResult, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import '../App.css';
-import POST_LOG from '../queries/users.queries';
+import LOGIN from '../queries/users.queries';
+import SignHeader from './SignHeader';
 
 function Login(): JSX.Element {
   const history = useHistory();
@@ -14,7 +15,7 @@ function Login(): JSX.Element {
 
   const [flashMessage, setFlashMessage] = useState('');
 
-  const [logs] = useMutation(POST_LOG);
+  const [login] = useMutation(LOGIN);
 
   async function handleSuccess(
     res: FetchResult<any, Record<string, any>, Record<string, any>>
@@ -47,7 +48,7 @@ function Login(): JSX.Element {
     } else {
       setFlashMessage('');
       try {
-        const res = await logs({ variables: { mail, password } });
+        const res = await login({ variables: { mail, password } });
         handleSuccess(res);
       } catch (error) {
         error.message === 'Wrong Password!'
@@ -62,15 +63,7 @@ function Login(): JSX.Element {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
-        <img
-          className="mx-auto h-20 w-auto animate-pulse"
-          src="https://avatars.githubusercontent.com/u/8874047?s=280&v=4"
-          alt="Workflow"
-        />
-        <h1 className="mt-6 text-center text-3xl font-extrabold text-gray-500">
-          Google Drive 213 OU 214
-        </h1>
-        <p className="mt-2 text-center text-gray-600">Continue your journey</p>
+        <SignHeader />
         <form className="mt-8 space-y-6" onSubmit={loginSubmission}>
           <div className="rounded-lg shadow-xl -space-y-px">
             <div>
@@ -81,7 +74,7 @@ function Login(): JSX.Element {
                   value={mail}
                   onChange={(e) => setMail(e.target.value)}
                   className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-100 placeholder-gray-400 focus:placeholder-gray-200 text-gray-900 rounded-t-md focus:outline-none focus:ring-red-300 focus:border-red-400 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
+                  placeholder="Adresse email"
                 />
               </label>
             </div>
@@ -93,7 +86,7 @@ function Login(): JSX.Element {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-100 placeholder-gray-400 focus:placeholder-gray-200 text-gray-900 rounded-b-md focus:outline-none focus:ring-red-300 focus:border-red-400 focus:z-10 sm:text-sm"
-                  placeholder="Password"
+                  placeholder="Mot de passe"
                 />
               </label>
             </div>
@@ -120,14 +113,14 @@ function Login(): JSX.Element {
                 />
               </svg>
             </span>
-            Sign in
+            Se connecter
           </button>
           <button
-            className="group relative w-full transition duration-500 ease-in-out flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-red-400 hover:text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-200 transition-shadow"
+            className="group relative w-full transition duration-500 ease-in-out flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-gray-400 hover:text-white hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-gray transition-shadow"
             type="submit"
             onClick={() => history.push('/signup')}
           >
-            Sign up
+            S&apos;inscrire
           </button>
         </form>
       </div>

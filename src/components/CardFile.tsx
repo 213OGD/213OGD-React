@@ -137,6 +137,18 @@ function CardFile(props: DatasProps): JSX.Element {
               )}
             </div>
           </div>
+          {warning && (
+            <p
+              style={{
+                backgroundColor: '#9c2a2a',
+                color: 'white',
+                textShadow: 'black',
+                fontWeight: 'bold',
+              }}
+            >
+              {warning}
+            </p>
+          )}
           {show && (
             <ul className="visible transition duration-300 opacity-100 bg-white dark:bg-gray-800 shadow rounded mt-2 w-full py-1 absolute">
               {arrayList.map((el) => (
@@ -159,18 +171,6 @@ function CardFile(props: DatasProps): JSX.Element {
             </ul>
           )}
         </div>
-      )}
-      {warning && (
-        <p
-          style={{
-            backgroundColor: '#9c2a2a',
-            color: 'white',
-            textShadow: 'black',
-            fontWeight: 'bold',
-          }}
-        >
-          {warning}
-        </p>
       )}
     </div>
   );
