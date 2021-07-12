@@ -9,11 +9,11 @@ import useTagSelection from '../hooks/useTagSelection';
 import { GET_FILES, CREATE_OR_UPDATE } from '../queries/files.queries';
 import CardFile, { DatasProps } from './CardFile';
 import '../App.css';
-import SideBar from './SideBar';
 import { IS_AUTH } from '../queries/users.queries';
 
 import logo from '../images/Drive-Logo.png';
 import GET_TAGS from '../queries/tags.queries';
+import Loader from './Loader';
 
 function Resources(): JSX.Element {
   const history = useHistory();
@@ -27,7 +27,7 @@ function Resources(): JSX.Element {
 
   const token = localStorage.getItem('odyssey213Token');
   const username = localStorage.getItem('username');
-  const [reqAuth] = useMutation(IS_AUTH);
+  const [isAuth] = useMutation(IS_AUTH);
   const [gDrive] = useMutation(CREATE_OR_UPDATE, {
     refetchQueries: () => [{ query: GET_FILES }],
   });
@@ -39,7 +39,7 @@ function Resources(): JSX.Element {
       }
       if (token) {
         try {
-          const auth = await reqAuth({ variables: { token } });
+          const auth = await isAuth({ variables: { token } });
           if (auth.data.getAuthPayload.loggedIn) {
             setRole(auth.data.getAuthPayload.role);
             setAuthLoad(true);
@@ -76,37 +76,29 @@ function Resources(): JSX.Element {
 
   // return (
   return !authLoad ? (
-    <>
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <img
-          className="mx-auto h-20 w-auto animate-ping"
-          src="https://avatars.githubusercontent.com/u/8874047?s=280&v=4"
-          alt="Workflow"
-        />
-      </div>
-    </>
+    <Loader />
   ) : (
     <div className="mx-auto">
       <header className="flex items-center justify-between mx-auto bg-wild bg-cover h-32 shadow-lg">
         <div className="flex flex-col items-center pl-6">
           <img className="h-12 xl:h-14" src={logo} alt="logo OGD 213" />
-          <h1 className="font-mono text-white">Odyssey Google Drive</h1>
+          <h1 className="font-mono text-white">Odyssey X Google Drive</h1>
           <h2 className="text-gray-700 font-semibold">213</h2>
         </div>
         <div className="text-white font-semibold">
-          {username && `Hello ${username}`}
+          {username && `Bienvenue ${username}`}
           <button
             className="text-white hover:text-red-400 hover:bg-gray-100 text-sm text-center rounded-md px-2 py-2 m-2 transition duration-500 ease select-none focus:outline-none focus:shadow-outline font-semibold"
             type="button"
             onClick={disconnect}
           >
-            LogOut
+            Se déconnecter
           </button>
         </div>
       </header>
       <div className="mx-auto">
-        {loading && <h2>loading !!!</h2>}
-        {error && <h2>error </h2>}
+        {loading && <Loader />}
+        {error && <h2>Une erreur est survenue...</h2>}
         {displayTags && displayTags.length > 0 && (
           <div className="flex flex-row flex-wrap items-center pl-5 2xl:pl-6">
             {role === 'teacher' && (
@@ -173,7 +165,7 @@ function Resources(): JSX.Element {
               data.files.map((file: JSX.IntrinsicAttributes & DatasProps) => {
                 return isFileSelected(file.tags, selectedTags) === true ? (
                   <CardFile
-                    role={role}
+                    {...role}
                     key={file._id}
                     {...file}
                     onReturnTags={(newTagList) => setUpdateTagList(newTagList)}

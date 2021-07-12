@@ -3,6 +3,7 @@ import React, { FormEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { SIGNUP } from '../queries/users.queries';
+import SignHeader from './SignHeader';
 
 export default function Signup(): JSX.Element {
   const history = useHistory();
@@ -42,6 +43,7 @@ export default function Signup(): JSX.Element {
     <>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
+          <SignHeader />
           <form className="mt-8 space-y-6" onSubmit={signupSubmission}>
             <div className="rounded-lg shadow-xl -space-y-px">
               <div>
@@ -52,7 +54,7 @@ export default function Signup(): JSX.Element {
                     value={mail}
                     onChange={(e) => setMail(e.target.value)}
                     className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-100 placeholder-gray-400 focus:placeholder-gray-200 text-gray-900 rounded-t-md focus:outline-none focus:ring-red-300 focus:border-red-400 focus:z-10 sm:text-sm"
-                    placeholder="Email address"
+                    placeholder="Adresse email"
                   />
                 </label>
               </div>
@@ -64,7 +66,7 @@ export default function Signup(): JSX.Element {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-100 placeholder-gray-400 focus:placeholder-gray-200 text-gray-900 rounded-t-md focus:outline-none focus:ring-red-300 focus:border-red-400 focus:z-10 sm:text-sm"
-                    placeholder="User name"
+                    placeholder="Nom d'utilisateur"
                   />
                 </label>
               </div>
@@ -76,7 +78,7 @@ export default function Signup(): JSX.Element {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-100 placeholder-gray-400 focus:placeholder-gray-200 text-gray-900 rounded-b-md focus:outline-none focus:ring-red-300 focus:border-red-400 focus:z-10 sm:text-sm"
-                    placeholder="Password"
+                    placeholder="Mot de passe"
                   />
                 </label>
               </div>
@@ -103,7 +105,14 @@ export default function Signup(): JSX.Element {
                   />
                 </svg>
               </span>
-              Sign in
+              S&apos;inscrire
+            </button>
+            <button
+              className="group relative w-full transition duration-500 ease-in-out flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-gray-400 hover:text-white hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-gray transition-shadow"
+              type="button"
+              onClick={() => history.push('/')}
+            >
+              Retour
             </button>
           </form>
         </div>
