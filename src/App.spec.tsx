@@ -4,6 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import Resource from './components/Resources';
 import { GET_FILES } from './queries/files.queries';
 import { IS_AUTH } from './queries/users.queries';
+import GET_TAGS from './queries/tags.queries';
 
 const mocks = [
   {
@@ -36,26 +37,50 @@ const mocks = [
     },
     result: {
       data: {
-        getAuthPayload: true,
+        getAuthPayload: {
+          loggedIn: true,
+          role: 'student'
+        }
+
       },
     },
   },
+  {
+    request: {
+      query: GET_TAGS,
+    },
+    result: {
+      data: {
+        tags: [
+          {
+            "name": "React"
+          },
+          {
+            "name": "Node"
+          },
+          {
+            "name": "JS"
+          },
+      ]
+      }
+    }
+  }
 ];
 
 describe('App', () => {
   it("test auth with good token & don't wait for datas", async () => {
-    localStorage.setItem('token', 'toto');
+    localStorage.setItem('odyssey213Token', 'toto');
     render(
       <MockedProvider mocks={mocks}>
         <Resource />
       </MockedProvider>
     );
 
-    expect(screen.getByText('loading ...')).toBeInTheDocument();
+    expect(screen.getByAltText('Workflow')).toBeInTheDocument();
   });
 
   it('test auth with good token & wait for datas', async () => {
-    localStorage.setItem('token', 'toto');
+    localStorage.setItem('odyssey213Token', 'toto');
     render(
       <MockedProvider mocks={mocks}>
         <Resource />
