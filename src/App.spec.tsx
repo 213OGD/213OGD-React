@@ -15,7 +15,7 @@ const mocks = [
       data: {
         files: [
           {
-            _id: '5fb78e83f608337cb309b76d',
+            id: '5fb78e83f608337cb309b76d',
             googleId: '1-xTxMVK719c7I0alIBzxdwnX6LxKIJxfUzajMLQTt7Q',
             name: 'another test',
             iconLink:

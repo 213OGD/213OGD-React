@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
@@ -163,11 +162,11 @@ function Resources(): JSX.Element {
           <div className="grid place-content-between sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grids-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7 4xl:grid-cols-8 5xl:grid-cols-10 gap-4 2xl:gap-3 justify-between">
             {data &&
               data.files.map((file: JSX.IntrinsicAttributes & DatasProps) => {
+                const fileRole = { ...file, role };
                 return isFileSelected(file.tags, selectedTags) === true ? (
                   <CardFile
-                    {...role}
-                    key={file._id}
-                    {...file}
+                    key={file.id}
+                    {...fileRole}
                     onReturnTags={(newTagList) => setUpdateTagList(newTagList)}
                   />
                 ) : null;

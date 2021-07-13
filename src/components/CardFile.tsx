@@ -7,7 +7,7 @@ import AddTag from './AddTag';
 import { DELETE_TAG, ADD_TAG } from '../queries/tags.queries';
 
 export type DatasProps = {
-  _id: string;
+  id: string;
   googleId?: string;
   name: string;
   webViewLink: string;
@@ -17,10 +17,16 @@ export type DatasProps = {
   onReturnTags: (tags: string[]) => void;
 };
 
-function CardFile(props: DatasProps): JSX.Element {
+function CardFile({
+  name,
+  webViewLink,
+  iconLink,
+  tags,
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { name, webViewLink, iconLink, tags, _id, role, onReturnTags } = props;
-
+  id,
+  role,
+  onReturnTags,
+}: DatasProps): JSX.Element {
   const [arrayList, setArrayList] = useState<string[]>(tags);
   const [warning, setWarning] = useState('');
 
@@ -59,7 +65,7 @@ function CardFile(props: DatasProps): JSX.Element {
     const newArray = arrayList.filter((item) => item !== tag);
 
     const removeTag = await deleteTagToBack({
-      variables: { args: { idFile: _id, tag } },
+      variables: { args: { idFile: id, tag } },
     });
     setArrayList(newArray);
     const tagList: string[] = [];
@@ -91,7 +97,7 @@ function CardFile(props: DatasProps): JSX.Element {
           </figcaption>
         </a>
       </figure>
-      {role === 'teacher' && <AddTag {...data} id={_id} />}
+      {role === 'teacher' && <AddTag {...data} id={id} />}
       {arrayList && arrayList.length > 0 && (
         <div className="relative">
           <div

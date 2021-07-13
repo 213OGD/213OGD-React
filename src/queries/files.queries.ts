@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 const GET_FILES = gql`
   query getFiles {
     files {
-      _id
+      id
       googleId
       name
       iconLink
@@ -16,7 +16,7 @@ const GET_FILES = gql`
 const CREATE_OR_UPDATE = gql`
   mutation createOrUpdate {
     createOrUpdate {
-      _id
+      id
       name
       webViewLink
       iconLink
