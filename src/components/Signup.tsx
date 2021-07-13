@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React, { FormEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
@@ -31,7 +30,7 @@ export default function Signup(): JSX.Element {
 
         localStorage.setItem('odyssey213Token', res.data.addUser.token);
         localStorage.setItem('username', res.data.addUser.user.username);
-        localStorage.setItem('id', res.data.addUser.user._id);
+        localStorage.setItem('id', res.data.addUser.user.id);
         history.push('/home');
       } catch (error) {
         setFlashMessage(error.message);

@@ -14,7 +14,7 @@ export const DELETE_TAG = gql`
   mutation deleteTag($args: tagInput) {
     deleteTag(tagInput: $args) {
       file {
-        _id
+        id
         tags
       }
       tags {
@@ -28,7 +28,7 @@ export const ADD_TAG = gql`
   mutation addTag($args: tagInput) {
     addTag(tagInput: $args) {
       file {
-        _id
+        id
         tags
       }
       tags {
