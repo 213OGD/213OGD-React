@@ -35,14 +35,14 @@ function CardFile({
   const [deleteTagToBack] = useMutation(DELETE_TAG);
 
   const data = {
-    addTag: async (tag: string, id: number) => {
+    addTag: async (tag: string, fileId: number) => {
       if (arrayList.find((item) => item.toLowerCase() === tag.toLowerCase())) {
         setWarning('Ce tag existe déjà');
       } else {
         // eslint-disable-next-line no-lonely-if
         if (tag.length >= 2) {
           const addTag = await addTagToBack({
-            variables: { args: { idFile: id, tag } },
+            variables: { args: { idFile: fileId, tag } },
           });
           const tagList: string[] = [];
           setArrayList([...arrayList, tag]);
