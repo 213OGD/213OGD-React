@@ -17,6 +17,10 @@ export type DatasProps = {
   onReturnTags: (tags: string[]) => void;
 };
 
+function capitalize(string: string) {
+  return string.charAt(0).toUpperCase() + string.toLowerCase().slice(1);
+}
+
 function CardFile({
   name,
   webViewLink,
@@ -45,7 +49,7 @@ function CardFile({
             variables: { args: { idFile: fileId, tag } },
           });
           const tagList: string[] = [];
-          setArrayList([...arrayList, tag]);
+          setArrayList([...arrayList, capitalize(tag)]);
 
           addTag.data.addTag.tags.map((t: any) => {
             console.log(t.name);
